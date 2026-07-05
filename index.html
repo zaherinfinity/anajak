@@ -1,1031 +1,881 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-    <title>MD5 Checker 2026 | AIDEN</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>MD5 Checker 2026 | AIDEN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
 
-    <style>
-        /* ───────── RESET & BASE ───────── */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    /* ───────── RESET & BASE ───────── */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        :root {
-            --bg-primary: #0b0d15;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --text-primary: #f0f2f8;
-            --text-secondary: #9aa0b8;
-            --accent-cyan: #00f0ff;
-            --accent-purple: #a855f7;
-            --accent-pink: #ec4899;
-            --accent-green: #34d399;
-            --accent-amber: #fbbf24;
-            --glow-cyan: rgba(0, 240, 255, 0.25);
-            --glow-purple: rgba(168, 85, 247, 0.25);
-            --radius: 20px;
-            --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-            --font: 'Inter', system-ui, -apple-system, sans-serif;
-            --mono: 'Fira Code', monospace;
-            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        }
+    :root {
+      --bg-primary: #0b0d15;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --text-primary: #f0f2f8;
+      --text-secondary: #9aa0b8;
+      --accent-cyan: #00f0ff;
+      --accent-purple: #a855f7;
+      --accent-green: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-red: #f87171;
+      --glow-cyan: rgba(0, 240, 255, 0.25);
+      --glow-purple: rgba(168, 85, 247, 0.25);
+      --radius: 20px;
+      --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --mono: 'Fira Code', monospace;
+      --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-        html {
-            font-size: 16px;
-            scroll-behavior: smooth;
-        }
+    html { font-size: 16px; scroll-behavior: smooth; }
 
-        body {
-            font-family: var(--font);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        /* ───────── ANIMATED BG ───────── */
-        .bg-orbs {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
+    /* ───────── ANIMATED BG ───────── */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-        .bg-orbs span {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.5;
-            animation: orbFloat 18s ease-in-out infinite alternate;
-        }
+    .bg-orbs span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.5;
+      animation: orbFloat 18s ease-in-out infinite alternate;
+    }
 
-        .bg-orbs .orb1 {
-            width: 500px;
-            height: 500px;
-            top: -10%;
-            left: -10%;
-            background: var(--glow-cyan);
-            animation-delay: 0s;
-        }
-        .bg-orbs .orb2 {
-            width: 400px;
-            height: 400px;
-            bottom: -10%;
-            right: -10%;
-            background: var(--glow-purple);
-            animation-delay: -6s;
-        }
-        .bg-orbs .orb3 {
-            width: 300px;
-            height: 300px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(236, 72, 153, 0.15);
-            animation-delay: -12s;
-            animation-duration: 22s;
-        }
+    .bg-orbs .orb1 {
+      width: 500px;
+      height: 500px;
+      top: -10%;
+      left: -10%;
+      background: var(--glow-cyan);
+      animation-delay: 0s;
+    }
+    .bg-orbs .orb2 {
+      width: 400px;
+      height: 400px;
+      bottom: -10%;
+      right: -10%;
+      background: var(--glow-purple);
+      animation-delay: -6s;
+    }
+    .bg-orbs .orb3 {
+      width: 300px;
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(236, 72, 153, 0.15);
+      animation-delay: -12s;
+      animation-duration: 22s;
+    }
 
-        @keyframes orbFloat {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(60px, -40px) scale(1.1);
-            }
-            66% {
-                transform: translate(-30px, 50px) scale(0.9);
-            }
-            100% {
-                transform: translate(20px, -20px) scale(1.05);
-            }
-        }
+    @keyframes orbFloat {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(60px, -40px) scale(1.1); }
+      66% { transform: translate(-30px, 50px) scale(0.9); }
+      100% { transform: translate(20px, -20px) scale(1.05); }
+    }
 
-        /* subtle grid overlay */
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 48px 48px;
-        }
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
 
-        /* ───────── GLASS CARD ───────── */
-        .glass-card {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 600px;
-            padding: 40px 32px 32px;
-            background: var(--bg-card);
-            backdrop-filter: blur(28px) saturate(1.4);
-            -webkit-backdrop-filter: blur(28px) saturate(1.4);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-            transition: var(--transition);
-        }
+    /* ───────── GLASS CARD ───────── */
+    .glass-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 600px;
+      padding: 40px 32px 32px;
+      background: var(--bg-card);
+      backdrop-filter: blur(28px) saturate(1.4);
+      -webkit-backdrop-filter: blur(28px) saturate(1.4);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      transition: var(--transition);
+    }
 
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: var(--radius);
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.10));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius);
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.10));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
 
-        /* ───────── HEADER ───────── */
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 6px;
-        }
+    /* ───────── HEADER ───────── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
 
-        .header .icon {
-            font-size: 2rem;
-            line-height: 1;
-            filter: drop-shadow(0 0 12px var(--glow-cyan));
-            animation: iconPulse 3s ease-in-out infinite;
-        }
+    .header .icon {
+      font-size: 2rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 12px var(--glow-cyan));
+      animation: iconPulse 3s ease-in-out infinite;
+    }
 
-        @keyframes iconPulse {
-            0%,
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.05) rotate(4deg);
-            }
-        }
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(4deg); }
+    }
 
-        .header h1 {
-            font-size: 1.55rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #fff 40%, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    .header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 40%, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .header .badge {
-            margin-left: auto;
-            font-size: 0.6rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 4px 12px;
-            border-radius: 100px;
-            background: rgba(0, 240, 255, 0.12);
-            border: 1px solid rgba(0, 240, 255, 0.15);
-            color: var(--accent-cyan);
-            -webkit-text-fill-color: var(--accent-cyan);
-            backdrop-filter: blur(4px);
-            white-space: nowrap;
-        }
+    .header .badge {
+      margin-left: auto;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      color: var(--accent-cyan);
+      -webkit-text-fill-color: var(--accent-cyan);
+      backdrop-filter: blur(4px);
+      white-space: nowrap;
+    }
 
-        .subtitle {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            margin-top: 2px;
-            margin-bottom: 24px;
-            padding-left: 4px;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-        }
+    .subtitle {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      margin-bottom: 24px;
+      padding-left: 4px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
 
-        /* ───────── INPUT ───────── */
-        .input-group {
-            margin-bottom: 20px;
-        }
+    /* ───────── INPUT ───────── */
+    .input-group { margin-bottom: 20px; }
 
-        .input-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
+    .input-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
 
-        .input-group label .label-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent-cyan);
-            box-shadow: 0 0 10px var(--glow-cyan);
-            animation: dotPulse 2s ease-in-out infinite;
-        }
+    .input-group label .label-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--glow-cyan);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
 
-        @keyframes dotPulse {
-            0%,
-            100% {
-                opacity: 0.4;
-                transform: scale(0.9);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
-        }
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
 
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: var(--transition);
-        }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: var(--transition);
+    }
 
-        .input-wrapper:focus-within {
-            border-color: rgba(0, 240, 255, 0.3);
-            box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.06), inset 0 0 0 1px rgba(0, 240, 255, 0.05);
-        }
+    .input-wrapper:focus-within {
+      border-color: rgba(0, 240, 255, 0.3);
+      box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.06), inset 0 0 0 1px rgba(0, 240, 255, 0.05);
+    }
 
-        .input-wrapper .prefix {
-            padding: 0 0 0 16px;
-            font-size: 1.1rem;
-            opacity: 0.5;
-            user-select: none;
-            pointer-events: none;
-        }
+    .input-wrapper .prefix {
+      padding: 0 0 0 16px;
+      font-size: 1.1rem;
+      opacity: 0.5;
+      user-select: none;
+      pointer-events: none;
+    }
 
-        .input-wrapper input {
-            flex: 1;
-            padding: 14px 16px 14px 10px;
-            background: transparent;
-            border: none;
-            outline: none;
-            font-family: var(--mono);
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            letter-spacing: 0.01em;
-            min-width: 0;
-        }
+    .input-wrapper input {
+      flex: 1;
+      padding: 14px 16px 14px 10px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+      min-width: 0;
+    }
 
-        .input-wrapper input::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-            font-weight: 400;
-            font-family: var(--font);
-            font-size: 0.85rem;
-            letter-spacing: 0.01em;
-        }
+    .input-wrapper input::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+      font-weight: 400;
+      font-family: var(--font);
+      font-size: 0.85rem;
+      letter-spacing: 0.01em;
+    }
 
-        .input-wrapper .char-count {
-            padding-right: 14px;
-            font-size: 0.65rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            opacity: 0.4;
-            font-family: var(--mono);
-            white-space: nowrap;
-            user-select: none;
-            pointer-events: none;
-        }
+    .input-wrapper .char-count {
+      padding-right: 14px;
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      opacity: 0.4;
+      font-family: var(--mono);
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+    }
 
-        .input-wrapper .char-count.valid {
-            color: var(--accent-green);
-            opacity: 0.8;
-        }
+    .input-wrapper .char-count.valid {
+      color: var(--accent-green);
+      opacity: 0.8;
+    }
 
-        /* ───────── BUTTON ───────── */
-        .btn-primary {
-            width: 100%;
-            padding: 15px 24px;
-            font-family: var(--font);
-            font-size: 0.95rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            border: none;
-            border-radius: 14px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            color: #0b0d15;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.15);
-        }
+    /* ───────── BUTTON ───────── */
+    .btn-primary {
+      width: 100%;
+      padding: 15px 24px;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      color: #0b0d15;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.15);
+    }
 
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0, 240, 255, 0.25);
-        }
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 240, 255, 0.25);
+    }
 
-        .btn-primary:active:not(:disabled) {
-            transform: scale(0.97);
-        }
+    .btn-primary:active:not(:disabled) { transform: scale(0.97); }
 
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
 
-        .btn-primary .spinner {
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(11, 13, 21, 0.15);
-            border-top-color: #0b0d15;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            display: none;
-        }
+    .btn-primary .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(11, 13, 21, 0.15);
+      border-top-color: #0b0d15;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
 
-        .btn-primary.loading .spinner {
-            display: block;
-        }
-        .btn-primary.loading .btn-text {
-            display: none;
-        }
+    .btn-primary.loading .spinner { display: block; }
+    .btn-primary.loading .btn-text { display: none; }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ───────── RESULT AREA ───────── */
-        .result-area {
-            margin-top: 24px;
-            padding: 20px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: var(--transition);
-            min-height: 140px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    /* ───────── RESULT AREA ───────── */
+    .result-area {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: var(--transition);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-        .result-area.has-data {
-            border-color: rgba(255, 255, 255, 0.06);
-        }
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-        .status-message {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.92rem;
-            font-weight: 500;
-            padding: 6px 0;
-            transition: var(--transition);
-            min-height: 32px;
-        }
+    .status-message {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      padding: 6px 0;
+      transition: var(--transition);
+      min-height: 32px;
+      flex: 1;
+    }
 
-        .status-message .status-icon {
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
+    .status-message .status-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .status-message.idle { color: var(--text-secondary); }
+    .status-message.loading { color: var(--accent-cyan); }
+    .status-message.success { color: var(--accent-green); }
+    .status-message.pending { color: var(--accent-amber); }
+    .status-message.error { color: var(--accent-red); }
 
-        .status-message.idle {
-            color: var(--text-secondary);
-        }
-        .status-message.loading {
-            color: var(--accent-cyan);
-        }
-        .status-message.success {
-            color: var(--accent-green);
-        }
-        .status-message.pending {
-            color: var(--accent-amber);
-        }
-        .status-message.error {
-            color: #f87171;
-        }
+    .json-view {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      line-height: 1.6;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #b0b8d0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 180px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
+    }
 
-        .json-view {
-            font-family: var(--mono);
-            font-size: 0.72rem;
-            line-height: 1.6;
-            padding: 14px 16px;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            color: #b0b8d0;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-            max-height: 180px;
-            overflow-y: auto;
-            transition: var(--transition);
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
-        }
+    .json-view::-webkit-scrollbar { width: 4px; }
+    .json-view::-webkit-scrollbar-track { background: transparent; }
+    .json-view::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 8px; }
 
-        .json-view::-webkit-scrollbar {
-            width: 4px;
-        }
-        .json-view::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .json-view::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-        }
+    /* ───────── UNLOCK ZONE ───────── */
+    .unlock-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(0, 240, 255, 0.06));
+      border: 1px solid rgba(52, 211, 153, 0.15);
+      color: var(--accent-green);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(6px) scale(0.97);
+      pointer-events: none;
+      max-height: 0;
+      padding: 0 18px;
+      overflow: hidden;
+    }
 
-        .json-view .key {
-            color: var(--accent-cyan);
-        }
-        .json-view .string {
-            color: var(--accent-green);
-        }
-        .json-view .number {
-            color: var(--accent-amber);
-        }
-        .json-view .boolean {
-            color: var(--accent-purple);
-        }
-        .json-view .null {
-            color: #f87171;
-        }
+    .unlock-feature.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      max-height: 80px;
+      padding: 14px 18px;
+    }
 
-        /* ───────── UNLOCK ZONE ───────── */
-        .unlock-feature {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 18px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(0, 240, 255, 0.06));
-            border: 1px solid rgba(52, 211, 153, 0.15);
-            color: var(--accent-green);
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(6px) scale(0.97);
-            pointer-events: none;
-            max-height: 0;
-            padding: 0 18px;
-            overflow: hidden;
-        }
+    .unlock-feature .lock-icon {
+      font-size: 1.2rem;
+      animation: lockBounce 2s ease-in-out infinite;
+    }
 
-        .unlock-feature.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: auto;
-            max-height: 80px;
-            padding: 14px 18px;
-        }
+    @keyframes lockBounce {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(-6deg); }
+    }
 
-        .unlock-feature .lock-icon {
-            font-size: 1.2rem;
-            animation: lockBounce 2s ease-in-out infinite;
-        }
+    /* ───────── POLLING INDICATOR ───────── */
+    .polling-badge {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      flex-shrink: 0;
+    }
 
-        @keyframes lockBounce {
-            0%,
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.1) rotate(-6deg);
-            }
-        }
+    .polling-badge.active { display: inline-flex; }
+    .polling-badge .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: dotPulse 1.2s ease-in-out infinite;
+    }
 
-        /* ───────── POLLING INDICATOR ───────── */
-        .polling-badge {
-            display: none;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            padding: 4px 12px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            margin-left: auto;
-        }
+    /* ───────── FOOTER ───────── */
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      opacity: 0.4;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 18px;
+    }
 
-        .polling-badge.active {
-            display: inline-flex;
-        }
+    .footer span {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
 
-        .polling-badge .pulse-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent-cyan);
-            animation: dotPulse 1.2s ease-in-out infinite;
-        }
+    /* ───────── RESPONSIVE ───────── */
+    @media (max-width: 480px) {
+      .glass-card { padding: 24px 18px 22px; border-radius: 16px; }
+      .header h1 { font-size: 1.2rem; }
+      .header .badge { font-size: 0.5rem; padding: 2px 10px; }
+      .header .icon { font-size: 1.5rem; }
+      .subtitle { font-size: 0.78rem; margin-bottom: 16px; }
+      .input-wrapper input { font-size: 0.78rem; padding: 12px 12px 12px 6px; }
+      .btn-primary { font-size: 0.85rem; padding: 13px 18px; }
+      .result-area { padding: 14px; min-height: 110px; }
+      .json-view { font-size: 0.65rem; padding: 10px 12px; max-height: 120px; }
+      .status-message { font-size: 0.82rem; }
+      .unlock-feature { font-size: 0.78rem; padding: 10px 14px; }
+      .unlock-feature.visible { padding: 10px 14px; max-height: 70px; }
+    }
 
-        .status-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+    @media (max-width: 380px) {
+      .glass-card { padding: 16px 12px 16px; }
+      .header h1 { font-size: 1rem; }
+      .header .badge { display: none; }
+    }
 
-        /* ───────── FOOTER ───────── */
-        .footer {
-            margin-top: 24px;
-            text-align: center;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            opacity: 0.4;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            padding-top: 18px;
-        }
+    /* ───────── TOAST ───────── */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(11, 13, 21, 0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 12px 24px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 999;
+      pointer-events: none;
+      white-space: nowrap;
+      max-width: 90%;
+    }
 
-        .footer span {
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.error { border-color: rgba(248, 113, 113, 0.2); }
+    .toast.success { border-color: rgba(52, 211, 153, 0.2); }
+    .toast.info { border-color: rgba(0, 240, 255, 0.15); }
 
-        /* ───────── RESPONSIVE ───────── */
-        @media (max-width: 480px) {
-            .glass-card {
-                padding: 24px 18px 22px;
-                border-radius: 16px;
-            }
-            .header h1 {
-                font-size: 1.2rem;
-            }
-            .header .badge {
-                font-size: 0.5rem;
-                padding: 2px 10px;
-            }
-            .header .icon {
-                font-size: 1.5rem;
-            }
-            .subtitle {
-                font-size: 0.78rem;
-                margin-bottom: 16px;
-            }
-            .input-wrapper input {
-                font-size: 0.78rem;
-                padding: 12px 12px 12px 6px;
-            }
-            .btn-primary {
-                font-size: 0.85rem;
-                padding: 13px 18px;
-            }
-            .result-area {
-                padding: 14px;
-                min-height: 110px;
-            }
-            .json-view {
-                font-size: 0.65rem;
-                padding: 10px 12px;
-                max-height: 120px;
-            }
-            .status-message {
-                font-size: 0.82rem;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .glass-card {
-                padding: 16px 12px 16px;
-            }
-            .header h1 {
-                font-size: 1rem;
-            }
-            .header .badge {
-                display: none;
-            }
-        }
-
-        /* ───────── UTILITY ───────── */
-        .hidden {
-            display: none !important;
-        }
-        .flex {
-            display: flex;
-        }
-        .items-center {
-            align-items: center;
-        }
-        .gap-2 {
-            gap: 8px;
-        }
-        .gap-3 {
-            gap: 12px;
-        }
-        .mt-2 {
-            margin-top: 8px;
-        }
-        .w-full {
-            width: 100%;
-        }
-
-        /* scrollbar global */
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 8px;
-        }
-
-        /* selection */
-        ::selection {
-            background: rgba(0, 240, 255, 0.25);
-            color: #fff;
-        }
-
-        /* ───────── GLOW TEXT ANIMATION ───────── */
-        .glow-text {
-            animation: glowPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-            0%,
-            100% {
-                text-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
-            }
-            50% {
-                text-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-            }
-        }
-    </style>
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.06); border-radius: 8px; }
+    ::selection { background: rgba(0, 240, 255, 0.25); color: #fff; }
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
 
-    <!-- ─── BACKGROUND ─── -->
-    <div class="bg-orbs">
-        <span class="orb1"></span>
-        <span class="orb2"></span>
-        <span class="orb3"></span>
+  <!-- ─── BACKGROUND ─── -->
+  <div class="bg-orbs">
+    <span class="orb1"></span>
+    <span class="orb2"></span>
+    <span class="orb3"></span>
+  </div>
+  <div class="bg-grid"></div>
+
+  <!-- ─── TOAST ─── -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ─── CARD ─── -->
+  <div class="glass-card">
+
+    <!-- Header -->
+    <div class="header">
+      <span class="icon">🔐</span>
+      <h1>MD5 Checker</h1>
+      <span class="badge">⚡ 2026</span>
     </div>
-    <div class="bg-grid"></div>
+    <div class="subtitle">បញ្ចូល MD5 ដើម្បីពិនិត្យទិន្នន័យ &bull; Real‑time</div>
 
-    <!-- ─── CARD ─── -->
-    <div class="glass-card">
-
-        <!-- Header -->
-        <div class="header">
-            <span class="icon">🔐</span>
-            <h1>MD5 Checker</h1>
-            <span class="badge">⚡ 2026</span>
-        </div>
-        <div class="subtitle">បញ្ចូល MD5 ដើម្បីពិនិត្យទិន្នន័យ &bull; Real‑time</div>
-
-        <!-- Input -->
-        <div class="input-group">
-            <label>
-                <span class="label-dot"></span>
-                MD5 Hash
-            </label>
-            <div class="input-wrapper">
-                <span class="prefix">#</span>
-                <input
-                type="text"
-                id="md5Input"
-                placeholder="e.g. 5d41402abc4b2a76b9719d911017c592"
-                autocomplete="off"
-                spellcheck="false"
-                />
-                <span class="char-count" id="charCount">0/32</span>
-            </div>
-        </div>
-
-        <!-- Button -->
-        <button class="btn-primary" id="checkBtn">
-            <span class="btn-text">🔍 Check MD5</span>
-            <span class="spinner"></span>
-        </button>
-
-        <!-- Result -->
-        <div class="result-area" id="resultArea">
-            <div class="status-row">
-                <div class="status-message idle" id="statusMsg">
-                    <span class="status-icon">✨</span>
-                    <span>បញ្ចូល MD5 ហើយចុចពិនិត្យ</span>
-                </div>
-                <div class="polling-badge" id="pollingBadge">
-                    <span class="pulse-dot"></span>
-                    <span>Polling</span>
-                </div>
-            </div>
-
-            <div class="json-view" id="jsonPreview">{
-                <span class="key">"waiting"</span>: <span class="string">"រង់ចាំសំណើ..."</span>
-            }</div>
-
-            <div class="unlock-feature" id="unlockZone">
-                <span class="lock-icon">🔓</span>
-                <span>✅ Premium Access Granted — Payment Verified</span>
-            </div>
-        </div>
-
-        <div class="footer">
-            Proxy API · <span>Real‑time</span> Payment Status
-        </div>
+    <!-- Input -->
+    <div class="input-group">
+      <label>
+        <span class="label-dot"></span>
+        MD5 Hash
+      </label>
+      <div class="input-wrapper">
+        <span class="prefix">#</span>
+        <input
+          type="text"
+          id="md5Input"
+          placeholder="e.g. 5d41402abc4b2a76b9719d911017c592"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <span class="char-count" id="charCount">0/32</span>
+      </div>
     </div>
 
-    <!-- ─── SCRIPT ─── -->
-    <script>
-        (function() {
-            'use strict';
+    <!-- Button -->
+    <button class="btn-primary" id="checkBtn">
+      <span class="btn-text">🔍 Check MD5</span>
+      <span class="spinner"></span>
+    </button>
 
-            // ─── DOM refs ───
-            const md5Input = document.getElementById('md5Input');
-            const checkBtn = document.getElementById('checkBtn');
-            const statusMsg = document.getElementById('statusMsg');
-            const jsonPreview = document.getElementById('jsonPreview');
-            const unlockZone = document.getElementById('unlockZone');
-            const charCount = document.getElementById('charCount');
-            const pollingBadge = document.getElementById('pollingBadge');
-            const resultArea = document.getElementById('resultArea');
+    <!-- Result -->
+    <div class="result-area" id="resultArea">
+      <div class="status-row">
+        <div class="status-message idle" id="statusMsg">
+          <span class="status-icon">✨</span>
+          <span>បញ្ចូល MD5 ហើយចុចពិនិត្យ</span>
+        </div>
+        <div class="polling-badge" id="pollingBadge">
+          <span class="pulse-dot"></span>
+          <span>Polling</span>
+        </div>
+      </div>
 
-            // ─── State ───
-            let pollingInterval = null;
-            let currentMd5 = null;
-            let abortController = null;
-            let isPolling = false;
+      <div class="json-view" id="jsonPreview">{
+  <span class="key">"waiting"</span>: <span class="string">"រង់ចាំសំណើ..."</span>
+}</div>
 
-            // ─── Helpers ───
-            function setStatus(icon, text, className) {
-                statusMsg.innerHTML = `<span class="status-icon">${icon}</span><span>${text}</span>`;
-                statusMsg.className = 'status-message ' + (className || 'idle');
-            }
+      <div class="unlock-feature" id="unlockZone">
+        <span class="lock-icon">🔓</span>
+        <span>✅ Premium Access Granted — Payment Verified</span>
+      </div>
+    </div>
 
-            function setJSON(data) {
-                if (typeof data === 'string') {
-                    jsonPreview.textContent = data;
-                    return;
-                }
-                jsonPreview.textContent = JSON.stringify(data, null, 2);
-            }
+    <div class="footer">
+      Proxy API · <span>Real‑time</span> Payment Status
+    </div>
+  </div>
 
-            function setLoading(loading) {
-                if (loading) {
-                    checkBtn.classList.add('loading');
-                    checkBtn.disabled = true;
-                } else {
-                    checkBtn.classList.remove('loading');
-                    checkBtn.disabled = false;
-                }
-            }
+  <!-- ─── SCRIPT ─── -->
+  <script>
+    (function() {
+      'use strict';
 
-            function showUnlock(show) {
-                if (show) {
-                    unlockZone.classList.add('visible');
-                } else {
-                    unlockZone.classList.remove('visible');
-                }
-            }
+      // ─── DOM refs ───
+      const md5Input = document.getElementById('md5Input');
+      const checkBtn = document.getElementById('checkBtn');
+      const statusMsg = document.getElementById('statusMsg');
+      const jsonPreview = document.getElementById('jsonPreview');
+      const unlockZone = document.getElementById('unlockZone');
+      const charCount = document.getElementById('charCount');
+      const pollingBadge = document.getElementById('pollingBadge');
+      const toast = document.getElementById('toast');
 
-            function setPollingBadge(active) {
-                if (active) {
-                    pollingBadge.classList.add('active');
-                } else {
-                    pollingBadge.classList.remove('active');
-                }
-            }
+      // ─── State ───
+      let pollingInterval = null;
+      let currentMd5 = null;
+      let abortController = null;
+      let isPolling = false;
+      let toastTimer = null;
 
-            function updateCharCount() {
-                const len = md5Input.value.length;
-                charCount.textContent = `${len}/32`;
-                if (len === 32 && /^[a-fA-F0-9]{32}$/i.test(md5Input.value)) {
-                    charCount.className = 'char-count valid';
-                } else {
-                    charCount.className = 'char-count';
-                }
-            }
+      // ─── Toast ───
+      function showToast(message, type = 'info', duration = 3000) {
+        if (toastTimer) { clearTimeout(toastTimer); toast.classList.remove('show'); }
+        void toast.offsetWidth;
+        toast.textContent = message;
+        toast.className = 'toast ' + type;
+        toast.classList.add('show');
+        toastTimer = setTimeout(() => { toast.classList.remove('show'); toastTimer = null; }, duration);
+      }
 
-            // ─── Payment detection ───
-            function isPaymentSuccessful(data) {
-                if (!data) return false;
-                if (data.status === 'paid' || data.status === 'success') return true;
-                if (data.paid === true) return true;
-                const amount = data.amount;
-                if (amount !== undefined) {
-                    const num = typeof amount === 'number' ? amount : parseFloat(amount);
-                    if (!isNaN(num) && num > 0) return true;
-                }
-                if (data.data && data.data.amount !== undefined) {
-                    const nested = data.data.amount;
-                    const num = typeof nested === 'number' ? nested : parseFloat(nested);
-                    if (!isNaN(num) && num > 0) return true;
-                }
-                return false;
-            }
+      // ─── Helpers ───
+      function setStatus(icon, text, className) {
+        statusMsg.innerHTML = `<span class="status-icon">${icon}</span><span>${text}</span>`;
+        statusMsg.className = 'status-message ' + (className || 'idle');
+      }
 
-            // ─── API call with AbortController ───
-            async function performCheckOnce(md5Value, isPollingCall = false) {
-                if (!md5Value) return false;
+      function setJSON(data) {
+        if (typeof data === 'string') { jsonPreview.textContent = data; return; }
+        jsonPreview.textContent = JSON.stringify(data, null, 2);
+      }
 
-                // Cancel any in-flight request
-                if (abortController) {
-                    abortController.abort();
-                    abortController = null;
-                }
+      function setLoading(loading) {
+        if (loading) { checkBtn.classList.add('loading'); checkBtn.disabled = true; }
+        else { checkBtn.classList.remove('loading'); checkBtn.disabled = false; }
+      }
 
-                abortController = new AbortController();
-                const signal = abortController.signal;
+      function showUnlock(show) {
+        if (show) unlockZone.classList.add('visible');
+        else unlockZone.classList.remove('visible');
+      }
 
-                try {
-                    const apiUrl = `/api/check?md5=${encodeURIComponent(md5Value)}&_=${Date.now()}`;
-                    const response = await fetch(apiUrl, {
-                        signal,
-                        headers: { 'Accept': 'application/json' }
-                    });
+      function setPollingBadge(active) {
+        if (active) pollingBadge.classList.add('active');
+        else pollingBadge.classList.remove('active');
+      }
 
-                    const rawText = await response.text();
-                    let responseData;
-                    try {
-                        responseData = JSON.parse(rawText);
-                    } catch (_) {
-                        responseData = { error: 'Invalid JSON', raw: rawText };
-                    }
+      function updateCharCount() {
+        const len = md5Input.value.length;
+        charCount.textContent = `${len}/32`;
+        if (len === 32 && /^[a-fA-F0-9]{32}$/i.test(md5Input.value)) {
+          charCount.className = 'char-count valid';
+        } else {
+          charCount.className = 'char-count';
+        }
+      }
 
-                    // Update JSON preview
-                    setJSON(responseData);
+      // ─── Safe error stringifier ───
+      function safeErrorString(err) {
+        if (err === null || err === undefined) return 'Unknown error';
+        if (typeof err === 'string') return err;
+        if (typeof err === 'object') {
+          if (err.message) return err.message;
+          if (err.error) {
+            if (typeof err.error === 'string') return err.error;
+            if (typeof err.error === 'object' && err.error.message) return err.error.message;
+          }
+          try { return JSON.stringify(err); } catch (_) { return String(err); }
+        }
+        return String(err);
+      }
 
-                    const paid = isPaymentSuccessful(responseData);
+      // ─── Payment detection (supports both single and bulk responses) ───
+      function isPaymentSuccessful(data) {
+        if (!data) return false;
+        // If response contains an array (bulk), check each item
+        if (Array.isArray(data)) {
+          return data.some(item => isPaymentSuccessful(item));
+        }
+        // Single object
+        if (data.status === 'paid' || data.status === 'success') return true;
+        if (data.paid === true) return true;
+        if (data.data) {
+          if (data.data.status === 'paid' || data.data.status === 'success') return true;
+          if (data.data.paid === true) return true;
+          const nestedAmount = data.data.amount;
+          if (nestedAmount !== undefined) {
+            const num = typeof nestedAmount === 'number' ? nestedAmount : parseFloat(nestedAmount);
+            if (!isNaN(num) && num > 0) return true;
+          }
+        }
+        const amount = data.amount;
+        if (amount !== undefined) {
+          const num = typeof amount === 'number' ? amount : parseFloat(amount);
+          if (!isNaN(num) && num > 0) return true;
+        }
+        return false;
+      }
 
-                    if (response.ok && paid) {
-                        setStatus('✅', 'ការទូទាត់បានជោគជ័យ! 🎉', 'success');
-                        showUnlock(true);
-                        setPollingBadge(false);
-                        if (isPollingCall) {
-                            stopPolling();
-                        }
-                        return true;
-                    } else if (response.ok && !paid) {
-                        setStatus('⏳', 'កំពុងរង់ចាំការទូទាត់... (ពិនិត្យឡើងវិញ)', 'pending');
-                        showUnlock(false);
-                        setPollingBadge(true);
-                        return false;
-                    } else {
-                        setStatus('⚠️', `កំហុស: ${responseData.error || 'សេវាកម្មមិនអាចប្រើប្រាស់បាន'}`, 'error');
-                        showUnlock(false);
-                        setPollingBadge(false);
-                        return false;
-                    }
-                } catch (error) {
-                    if (error.name === 'AbortError') {
-                        // Request was cancelled – ignore
-                        return false;
-                    }
-                    console.error('Fetch error:', error);
-                    setStatus('💥', 'កំហុសបណ្តាញ សូមព្យាយាមម្តងទៀត', 'error');
-                    setJSON({ fatal: error.message });
-                    showUnlock(false);
-                    setPollingBadge(false);
-                    return false;
-                } finally {
-                    abortController = null;
-                }
-            }
+      // ─── API call via worker.php (POST JSON) ───
+      async function performCheckOnce(md5Value, isPollingCall = false) {
+        if (!md5Value) return false;
 
-            // ─── Polling ───
-            function stopPolling() {
-                if (pollingInterval) {
-                    clearInterval(pollingInterval);
-                    pollingInterval = null;
-                }
-                if (abortController) {
-                    abortController.abort();
-                    abortController = null;
-                }
-                isPolling = false;
-                setPollingBadge(false);
-                setLoading(false);
-            }
+        if (abortController) { abortController.abort(); abortController = null; }
+        abortController = new AbortController();
+        const signal = abortController.signal;
 
-            async function startPolling(md5Value) {
-                stopPolling();
-                currentMd5 = md5Value;
-                isPolling = true;
+        try {
+          const response = await fetch('worker.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ md5: md5Value }),
+            signal
+          });
 
-                // Immediate first check
-                let finished = await performCheckOnce(md5Value, true);
-                if (finished) {
-                    setLoading(false);
-                    isPolling = false;
-                    return;
-                }
+          const rawText = await response.text();
+          let responseData;
+          try { responseData = JSON.parse(rawText); } catch (_) {
+            responseData = { error: 'Invalid JSON from server', raw: rawText };
+          }
 
-                // Start polling every 1.5 seconds (super fast)
-                pollingInterval = setInterval(async () => {
-                    if (!currentMd5 || !isPolling) {
-                        stopPolling();
-                        return;
-                    }
-                    const done = await performCheckOnce(currentMd5, true);
-                    if (done) {
-                        stopPolling();
-                    }
-                }, 1500); // 1.5s for speed
-            }
+          setJSON(responseData);
+          const paid = isPaymentSuccessful(responseData);
 
-            // ─── Main check ───
-            async function performCheck() {
-                const md5Value = md5Input.value.trim();
+          if (response.ok && paid) {
+            setStatus('✅', 'ការទូទាត់បានជោគជ័យ! 🎉', 'success');
+            showUnlock(true);
+            setPollingBadge(false);
+            showToast('✅ Payment verified successfully!', 'success', 2500);
+            if (isPollingCall) stopPolling();
+            return true;
+          } else if (response.ok && !paid) {
+            setStatus('⏳', 'កំពុងរង់ចាំការទូទាត់... (ពិនិត្យឡើងវិញ)', 'pending');
+            showUnlock(false);
+            setPollingBadge(true);
+            return false;
+          } else {
+            const errMsg = safeErrorString(responseData.error || responseData.message || responseData);
+            setStatus('⚠️', `កំហុស: ${errMsg}`, 'error');
+            showUnlock(false);
+            setPollingBadge(false);
+            showToast(`⚠️ ${errMsg}`, 'error', 3500);
+            return false;
+          }
+        } catch (error) {
+          if (error.name === 'AbortError') return false;
+          console.error('Fetch error:', error);
+          const errMsg = safeErrorString(error);
+          setStatus('💥', `កំហុសបណ្តាញ: ${errMsg}`, 'error');
+          setJSON({ fatal: errMsg });
+          showUnlock(false);
+          setPollingBadge(false);
+          showToast(`💥 ${errMsg}`, 'error', 3500);
+          return false;
+        } finally {
+          abortController = null;
+        }
+      }
 
-                // Validate
-                if (!md5Value) {
-                    setStatus('⚠️', 'សូមបញ្ចូល MD5', 'error');
-                    setJSON({ error: 'MD5 is empty' });
-                    showUnlock(false);
-                    setPollingBadge(false);
-                    return;
-                }
+      // ─── Polling (1 second interval for super speed) ───
+      function stopPolling() {
+        if (pollingInterval) { clearInterval(pollingInterval); pollingInterval = null; }
+        if (abortController) { abortController.abort(); abortController = null; }
+        isPolling = false;
+        setPollingBadge(false);
+        setLoading(false);
+      }
 
-                const md5Regex = /^[a-fA-F0-9]{32}$/;
-                if (!md5Regex.test(md5Value)) {
-                    setStatus('❌', 'MD5 មិនត្រឹមត្រូវទេ (ត្រូវការ 32 តួ hex)', 'error');
-                    setJSON({ error: 'Invalid MD5 format' });
-                    showUnlock(false);
-                    setPollingBadge(false);
-                    return;
-                }
+      async function startPolling(md5Value) {
+        stopPolling();
+        currentMd5 = md5Value;
+        isPolling = true;
 
-                // Reset UI
-                showUnlock(false);
-                setPollingBadge(false);
-                setLoading(true);
-                setStatus('⏳', 'កំពុងពិនិត្យ...', 'loading');
+        let finished = await performCheckOnce(md5Value, true);
+        if (finished) { setLoading(false); isPolling = false; return; }
 
-                // Start polling
-                await startPolling(md5Value);
-            }
+        // Poll every 1 second for ultra-fast response
+        pollingInterval = setInterval(async () => {
+          if (!currentMd5 || !isPolling) { stopPolling(); return; }
+          const done = await performCheckOnce(currentMd5, true);
+          if (done) stopPolling();
+        }, 1000);
+      }
 
-            // ─── Event listeners ───
-            checkBtn.addEventListener('click', performCheck);
+      // ─── Main check ───
+      async function performCheck() {
+        const md5Value = md5Input.value.trim();
 
-            md5Input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') performCheck();
-            });
+        if (!md5Value) {
+          setStatus('⚠️', 'សូមបញ្ចូល MD5', 'error');
+          setJSON({ error: 'MD5 is empty' });
+          showUnlock(false);
+          setPollingBadge(false);
+          showToast('⚠️ Please enter an MD5 hash', 'error', 2500);
+          return;
+        }
 
-            md5Input.addEventListener('input', updateCharCount);
+        const md5Regex = /^[a-fA-F0-9]{32}$/;
+        if (!md5Regex.test(md5Value)) {
+          setStatus('❌', 'MD5 មិនត្រឹមត្រូវទេ (ត្រូវការ 32 តួ hex)', 'error');
+          setJSON({ error: 'Invalid MD5 format' });
+          showUnlock(false);
+          setPollingBadge(false);
+          showToast('❌ Invalid MD5 format (32 hex chars required)', 'error', 3000);
+          return;
+        }
 
-            // ─── Auto-check on paste if valid ───
-            md5Input.addEventListener('paste', () => {
-                setTimeout(() => {
-                    updateCharCount();
-                    const val = md5Input.value.trim();
-                    if (/^[a-fA-F0-9]{32}$/.test(val)) {
-                        performCheck();
-                    }
-                }, 50);
-            });
+        showUnlock(false);
+        setPollingBadge(false);
+        setLoading(true);
+        setStatus('⏳', 'កំពុងពិនិត្យ...', 'loading');
+        showToast('🔍 Checking MD5...', 'info', 1500);
 
-            // ─── Init ───
-            updateCharCount();
+        await startPolling(md5Value);
+      }
 
-            // ─── Cleanup on page unload ───
-            window.addEventListener('beforeunload', () => {
-                stopPolling();
-                if (abortController) {
-                    abortController.abort();
-                    abortController = null;
-                }
-            });
+      // ─── Event listeners ───
+      checkBtn.addEventListener('click', performCheck);
+      md5Input.addEventListener('keypress', (e) => { if (e.key === 'Enter') performCheck(); });
+      md5Input.addEventListener('input', updateCharCount);
 
-        })();
-    </script>
+      md5Input.addEventListener('paste', () => {
+        setTimeout(() => {
+          updateCharCount();
+          const val = md5Input.value.trim();
+          if (/^[a-fA-F0-9]{32}$/.test(val)) performCheck();
+        }, 50);
+      });
 
+      // ─── Init ───
+      updateCharCount();
+
+      // ─── Cleanup ───
+      window.addEventListener('beforeunload', () => {
+        stopPolling();
+        if (abortController) { abortController.abort(); abortController = null; }
+        if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
+      });
+
+    })();
+  </script>
 </body>
 </html>
