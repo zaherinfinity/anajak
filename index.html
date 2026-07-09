@@ -3,14 +3,74 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DonateNow - Support Our Cause</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <title>AnajakAngkor Football Team</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         /* ============================================================
-                   ROOT & RESET
-                   ============================================================ */
+               ROOT VARIABLES — 2026 Design System
+               ============================================================ */
+        :root {
+            /* Primary Palette */
+            --primary: #6C3CE1;
+            --primary-light: #8B5CF6;
+            --primary-dark: #4F2BAE;
+            --primary-gradient: linear-gradient(135deg, #6C3CE1 0%, #A855F7 50%, #EC4899 100%);
+            --secondary: #0F172A;
+            --accent: #F59E0B;
+
+            /* Neutrals */
+            --bg-body: #F8FAFC;
+            --bg-surface: #FFFFFF;
+            --bg-glass: rgba(255, 255, 255, 0.55);
+            --bg-glass-border: rgba(255, 255, 255, 0.25);
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --border-color: #E2E8F0;
+
+            /* Shadows — 2026 Glassmorphism + Soft Depth */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 16px 64px rgba(0, 0, 0, 0.10);
+            --shadow-glow: 0 0 40px rgba(108, 60, 225, 0.25);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.06);
+
+            /* Radius */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-full: 9999px;
+
+            /* Transitions */
+            --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-fast: 0.2s ease;
+
+            /* Font */
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --bg-body: #0B1121;
+            --bg-surface: #1A2332;
+            --bg-glass: rgba(26, 35, 50, 0.65);
+            --bg-glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border-color: #2D3A4F;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 64px rgba(0, 0, 0, 0.5);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ============================================================
+               RESET & BASE
+               ============================================================ */
         *,
         *::before,
         *::after {
@@ -19,809 +79,1207 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #111827;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --bg-card-hover: rgba(255, 255, 255, 0.08);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --accent-1: #6366f1;
-            --accent-2: #8b5cf6;
-            --accent-3: #06b6d4;
-            --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
-            --shadow-glow: 0 0 60px rgba(99, 102, 241, 0.15);
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            --radius-sm: 12px;
-            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
         html {
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
             font-family: var(--font);
-            background: var(--bg-primary);
+            background: var(--bg-body);
             color: var(--text-primary);
-            min-height: 100vh;
             line-height: 1.6;
-            overflow-x: hidden;
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
         }
 
-        /* Animated background orbs */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.5;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
-        .orb-1 {
-            width: 600px;
-            height: 600px;
-            background: rgba(99, 102, 241, 0.15);
-            top: -200px;
-            right: -200px;
-            animation: floatOrb 20s ease-in-out infinite alternate;
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            background: none;
         }
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: rgba(6, 182, 212, 0.10);
-            bottom: -150px;
-            left: -150px;
-            animation: floatOrb 25s ease-in-out infinite alternate-reverse;
+        img {
+            max-width: 100%;
+            display: block;
         }
-        .orb-3 {
-            width: 400px;
-            height: 400px;
-            background: rgba(139, 92, 246, 0.10);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: floatOrb 30s ease-in-out infinite alternate;
+        ul {
+            list-style: none;
         }
 
-        @keyframes floatOrb {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                transform: translate(60px, -40px) scale(1.1);
-            }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-body);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: var(--radius-full);
         }
 
         /* ============================================================
-                   GLASS CARD
-                   ============================================================ */
-        .glass {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-glow);
-            transition: var(--transition);
-        }
-
-        .glass:hover {
-            background: var(--bg-card-hover);
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        /* ============================================================
-                   CONTAINER
-                   ============================================================ */
+               UTILITY CLASSES
+               ============================================================ */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
-            position: relative;
-            z-index: 1;
         }
 
-        /* ============================================================
-                   HEADER / NAV
-                   ============================================================ */
-        .navbar {
-            padding: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(10, 14, 26, 0.72);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-        .logo i {
-            font-size: 1.8rem;
-            -webkit-text-fill-color: initial;
-            color: #6366f1;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gradient);
-            transition: var(--transition);
-        }
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-cta {
-            background: var(--accent-gradient);
-            padding: 10px 24px;
-            border-radius: 100px;
-            color: #fff !important;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-        .nav-cta::after {
-            display: none !important;
-        }
-        .nav-cta:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.35);
-        }
-
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.6rem;
-            cursor: pointer;
-        }
-
-        /* ============================================================
-                   HERO
-                   ============================================================ */
-        .hero {
-            padding: 80px 0 60px;
-            text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            padding: 6px 18px;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        .hero h1 {
-            font-size: clamp(2.8rem, 6vw, 4.8rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-        .hero h1 .highlight {
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 640px;
-            margin: 0 auto 40px;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
+        .glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-glass);
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 14px 34px;
-            border-radius: 100px;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: var(--radius-full);
             font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            font-family: var(--font);
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
-            background: var(--accent-gradient);
+            background: var(--primary-gradient);
             color: #fff;
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.25);
+            box-shadow: 0 4px 16px rgba(108, 60, 225, 0.35);
         }
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 48px rgba(99, 102, 241, 0.35);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 32px rgba(108, 60, 225, 0.45);
         }
 
         .btn-outline {
             background: transparent;
             color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-color: var(--border-color);
         }
         .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: var(--primary);
             color: #fff;
-            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.25);
-        }
-        .btn-success:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 48px rgba(16, 185, 129, 0.35);
+            border-color: var(--primary);
         }
 
-        /* ============================================================
-                   STATS
-                   ============================================================ */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 24px;
-            margin: 60px 0 40px;
+        .btn-ghost {
+            color: var(--text-secondary);
+        }
+        .btn-ghost:hover {
+            color: var(--primary);
+            background: rgba(108, 60, 225, 0.08);
         }
 
-        .stat-card {
-            text-align: center;
-            padding: 28px 20px;
+        .btn-danger {
+            background: #EF4444;
+            color: #fff;
         }
-        .stat-card .number {
-            font-size: 2.4rem;
+        .btn-danger:hover {
+            background: #DC2626;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
+        }
+
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+        .btn-lg {
+            padding: 14px 36px;
+            font-size: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .badge-success {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        .badge-danger {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        .badge-warning {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        .badge-info {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+        .badge-primary {
+            background: rgba(108, 60, 225, 0.15);
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .badge-success {
+            background: #064E3B;
+            color: #6EE7B7;
+        }
+        [data-theme="dark"] .badge-danger {
+            background: #7F1D1D;
+            color: #FCA5A5;
+        }
+        [data-theme="dark"] .badge-warning {
+            background: #78350F;
+            color: #FCD34D;
+        }
+        [data-theme="dark"] .badge-info {
+            background: #1E3A5F;
+            color: #93C5FD;
+        }
+        [data-theme="dark"] .badge-primary {
+            background: rgba(108, 60, 225, 0.25);
+            color: #A78BFA;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
             font-weight: 800;
-            background: var(--accent-gradient);
+            letter-spacing: -0.03em;
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
         }
-        .stat-card .label {
+
+        .section-subtitle {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 4px;
+            font-size: 1.05rem;
+            max-width: 600px;
         }
 
         /* ============================================================
-                   DONATION SECTION
-                   ============================================================ */
-        .section-title {
+               HEADER / NAV
+               ============================================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 0;
+            transition: all var(--transition);
+        }
+        .header.scrolled {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--bg-glass-border);
+            box-shadow: var(--shadow-sm);
+            padding: 8px 0;
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+        }
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: var(--radius-sm);
+        }
+        .logo span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+            background: rgba(108, 60, 225, 0.08);
+        }
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-glass);
+            border: 1px solid var(--bg-glass-border);
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+        }
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: rotate(20deg);
+        }
+
+        .mobile-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--bg-glass);
+            border: 1px solid var(--bg-glass-border);
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+               HERO
+               ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-body);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(108, 60, 225, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 .highlight {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image .hero-card {
+            width: 100%;
+            max-width: 480px;
+            padding: 32px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+        .hero-image .hero-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            margin: 0 auto 16px;
+            border: 4px solid rgba(108, 60, 225, 0.2);
+            object-fit: cover;
+        }
+        .hero-image .hero-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .hero-image .hero-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .hero-stats .stat {
+            text-align: center;
+        }
+        .hero-stats .stat .number {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .hero-stats .stat .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* ============================================================
+               SECTION: Players
+               ============================================================ */
+        .section {
+            padding: 80px 0;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .player-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            padding: 24px 20px 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .player-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+        .player-card .avatar {
+            width: 88px;
+            height: 88px;
+            border-radius: var(--radius-full);
+            margin: 0 auto 12px;
+            object-fit: cover;
+            border: 3px solid rgba(108, 60, 225, 0.15);
+            transition: all var(--transition);
+        }
+        .player-card:hover .avatar {
+            border-color: var(--primary);
+            transform: scale(1.04);
+        }
+        .player-card .name {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .player-card .position {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+        }
+        .player-card .number {
+            position: absolute;
+            top: 12px;
+            right: 16px;
             font-size: 2rem;
+            font-weight: 900;
+            color: rgba(108, 60, 225, 0.08);
+            line-height: 1;
+        }
+        .player-card .stats-mini {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .player-card .stats-mini span {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+               SECTION: Matches
+               ============================================================ */
+        .matches-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .match-item {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .match-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+        }
+        .match-teams {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-weight: 600;
+        }
+        .match-teams .team {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .match-teams .team img {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+        }
+        .match-score {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            padding: 0 12px;
+        }
+        .match-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .match-meta .date {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ============================================================
+               SECTION: News
+               ============================================================ */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .news-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition);
+        }
+        .news-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+        .news-card .image {
+            height: 180px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .news-card .body {
+            padding: 20px 20px 24px;
+        }
+        .news-card .body .tag {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            background: rgba(108, 60, 225, 0.1);
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .news-card .body h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .news-card .body p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .news-card .body .date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+            display: block;
+        }
+
+        /* ============================================================
+               SECTION: Gallery
+               ============================================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.2);
+            transition: all var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-glow);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-item .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+        }
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* ============================================================
+               ADMIN PANEL
+               ============================================================ */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            min-height: 100vh;
+            gap: 0;
+        }
+        .admin-sidebar {
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
+            padding: 24px 16px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .admin-sidebar .logo-sm {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            margin-bottom: 16px;
+        }
+        .admin-sidebar .logo-sm img {
+            height: 32px;
+            width: auto;
+            border-radius: var(--radius-sm);
+        }
+        .admin-sidebar .logo-sm span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-sidebar .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+        }
+        .admin-sidebar .nav-item:hover {
+            background: rgba(108, 60, 225, 0.06);
+            color: var(--text-primary);
+        }
+        .admin-sidebar .nav-item.active {
+            background: rgba(108, 60, 225, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .admin-sidebar .nav-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .admin-sidebar .nav-item .badge {
+            margin-left: auto;
+        }
+
+        .admin-sidebar .sidebar-footer {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .admin-main {
+            padding: 32px 40px;
+            background: var(--bg-body);
+        }
+        .admin-main .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .admin-main .page-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .admin-table-wrap {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .admin-table th {
+            text-align: left;
+            padding: 14px 20px;
+            background: var(--bg-body);
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .admin-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        .admin-table .actions {
+            display: flex;
+            gap: 6px;
+        }
+        .admin-table .actions button {
+            padding: 4px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+        .admin-table .actions .edit-btn {
+            background: rgba(108, 60, 225, 0.08);
+            color: var(--primary);
+        }
+        .admin-table .actions .edit-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+        .admin-table .actions .delete-btn {
+            background: rgba(239, 68, 68, 0.08);
+            color: #EF4444;
+        }
+        .admin-table .actions .delete-btn:hover {
+            background: #EF4444;
+            color: #fff;
+        }
+
+        /* Admin Form */
+        .admin-form {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            max-width: 640px;
+        }
+        .admin-form .form-group {
+            margin-bottom: 20px;
+        }
+        .admin-form .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+        .admin-form .form-group input,
+        .admin-form .form-group select,
+        .admin-form .form-group textarea {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-body);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+            outline: none;
+        }
+        .admin-form .form-group input:focus,
+        .admin-form .form-group select:focus,
+        .admin-form .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 60, 225, 0.1);
+        }
+        .admin-form .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .admin-form .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        /* ============================================================
+               AUTH CARD
+               ============================================================ */
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            background: var(--bg-body);
+        }
+        .auth-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .auth-card .logo-auth {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .auth-card .logo-auth img {
+            height: 48px;
+            width: auto;
+            border-radius: var(--radius-sm);
+        }
+        .auth-card .logo-auth span {
+            font-weight: 800;
+            font-size: 1.4rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .auth-card h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .auth-card p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        .auth-card .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .auth-card .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+        }
+        .auth-card .form-group input {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-body);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+            outline: none;
+        }
+        .auth-card .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 60, 225, 0.1);
+        }
+        .auth-card .btn {
+            width: 100%;
+            margin-top: 8px;
+        }
+        .auth-card .toggle-auth {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .auth-card .toggle-auth a {
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ============================================================
+               FOOTER
+               ============================================================ */
+        .footer {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+        .footer-grid h4 {
             font-weight: 700;
             margin-bottom: 12px;
         }
-        .section-sub {
+        .footer-grid p,
+        .footer-grid a {
             color: var(--text-secondary);
-            margin-bottom: 40px;
-            font-size: 1.05rem;
+            font-size: 0.9rem;
+            line-height: 1.8;
         }
-
-        .donation-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 40px 0 60px;
+        .footer-grid a:hover {
+            color: var(--primary);
         }
-
-        @media (max-width: 820px) {
-            .donation-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ---- Amount selector ---- */
-        .amount-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .amount-btn {
-            padding: 14px 0;
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: var(--font);
-        }
-        .amount-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-        .amount-btn.active {
-            background: var(--accent-gradient);
-            border-color: transparent;
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
-        }
-
-        .custom-amount-wrap {
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            margin: 16px 0 24px;
             flex-wrap: wrap;
-        }
-        .custom-amount-wrap label {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        .custom-amount-wrap input {
-            flex: 1;
-            min-width: 140px;
-            padding: 12px 18px;
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-family: var(--font);
-            transition: var(--transition);
-            outline: none;
-        }
-        .custom-amount-wrap input:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-        }
-
-        /* ---- Form fields ---- */
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            display: block;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-family: var(--font);
-            transition: var(--transition);
-            outline: none;
-        }
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-        }
-        .form-group select option {
-            background: #1a1f2e;
-        }
-
-        /* ---- QR display ---- */
-        .qr-display {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 30px;
-            text-align: center;
-            min-height: 360px;
-        }
-        .qr-display img {
-            max-width: 220px;
-            width: 100%;
-            border-radius: var(--radius-sm);
-            background: #fff;
-            padding: 12px;
-            margin-bottom: 16px;
-        }
-        .qr-display .qr-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .qr-display .qr-ref {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-            word-break: break-all;
-        }
-        .qr-placeholder {
-            width: 200px;
-            height: 200px;
-            border-radius: var(--radius-sm);
-            background: rgba(255, 255, 255, 0.04);
-            border: 2px dashed rgba(255, 255, 255, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            flex-direction: column;
             gap: 12px;
-            margin-bottom: 16px;
-        }
-        .qr-placeholder i {
-            font-size: 3rem;
-            opacity: 0.3;
-        }
-
-        .payment-status {
-            margin-top: 16px;
-            padding: 12px 20px;
-            border-radius: var(--radius-sm);
-            font-weight: 500;
-            display: none;
-            width: 100%;
-            max-width: 320px;
-        }
-        .payment-status.success {
-            display: block;
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        .payment-status.pending {
-            display: block;
-            background: rgba(251, 191, 36, 0.12);
-            color: #fbbf24;
-            border: 1px solid rgba(251, 191, 36, 0.2);
-        }
-        .payment-status.error {
-            display: block;
-            background: rgba(239, 68, 68, 0.12);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-        }
-
-        /* ============================================================
-                   RECENT DONATIONS
-                   ============================================================ */
-        .donations-table-wrap {
-            overflow-x: auto;
-            margin: 20px 0 40px;
-        }
-        .donations-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95rem;
-        }
-        .donations-table th {
-            text-align: left;
-            padding: 14px 16px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .donations-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            color: var(--text-primary);
-        }
-        .donations-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-        .status-badge.completed {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-        }
-        .status-badge.pending {
-            background: rgba(251, 191, 36, 0.12);
-            color: #fbbf24;
-        }
-        .status-badge.failed {
-            background: rgba(239, 68, 68, 0.12);
-            color: #f87171;
-        }
-
-        /* ============================================================
-                   ADMIN
-                   ============================================================ */
-        .admin-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 28px;
-            margin: 30px 0;
-        }
-        @media (max-width: 700px) {
-            .admin-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .admin-stat {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            padding: 24px 28px;
-        }
-        .admin-stat .icon {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius-sm);
-            background: rgba(99, 102, 241, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: #818cf8;
-        }
-        .admin-stat .info .value {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        .admin-stat .info .desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .admin-tabs {
-            display: flex;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 4px;
-            border-radius: var(--radius-sm);
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-        }
-        .admin-tabs button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: var(--radius-sm);
-            background: transparent;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-family: var(--font);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .admin-tabs button.active {
-            background: var(--accent-gradient);
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25);
-        }
-        .admin-tabs button:hover:not(.active) {
-            color: var(--text-primary);
-        }
-
-        .admin-panel {
-            display: none;
-        }
-        .admin-panel.active {
-            display: block;
-        }
-
-        /* ---- Settings form ---- */
-        .settings-form .form-group {
-            max-width: 500px;
-        }
-        .settings-form .form-group input {
-            font-family: monospace;
             font-size: 0.85rem;
+            color: var(--text-muted);
         }
-
-        /* ============================================================
-                   TOAST NOTIFICATIONS
-                   ============================================================ */
-        .toast-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 999;
+        .footer-socials {
             display: flex;
-            flex-direction: column;
             gap: 12px;
-            max-width: 380px;
-            width: 100%;
         }
-        .toast {
-            padding: 16px 22px;
-            border-radius: var(--radius-sm);
-            background: var(--bg-secondary);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-            color: var(--text-primary);
-            font-weight: 500;
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: var(--bg-body);
             display: flex;
             align-items: center;
-            gap: 12px;
-            animation: slideUp 0.4s ease;
-            font-size: 0.95rem;
-        }
-        .toast i {
-            font-size: 1.2rem;
-        }
-        .toast.success i {
-            color: #34d399;
-        }
-        .toast.error i {
-            color: #f87171;
-        }
-        .toast.info i {
-            color: #60a5fa;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ============================================================
-                   FOOTER
-                   ============================================================ */
-        .footer {
-            text-align: center;
-            padding: 40px 0 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 40px;
-        }
-        .footer a {
+            justify-content: center;
             color: var(--text-secondary);
-            text-decoration: none;
+            transition: all var(--transition-fast);
+            border: 1px solid var(--border-color);
         }
-        .footer a:hover {
-            color: var(--text-primary);
+        .footer-socials a:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
         /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
-        @media (max-width: 768px) {
+               RESPONSIVE
+               ============================================================ */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .hero-image .hero-card {
+                max-width: 360px;
+                margin: 0 auto;
+            }
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                display: none;
+                position: fixed;
+                inset: 0;
+                z-index: 999;
+                height: 100vh;
+                width: 280px;
+                background: var(--bg-surface);
+                border-right: 1px solid var(--border-color);
+                padding: 24px 16px;
+                overflow-y: auto;
+            }
+            .admin-sidebar.open {
+                display: flex;
+            }
+            .admin-main {
+                padding: 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .mobile-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             .nav-links {
                 display: none;
-                flex-direction: column;
-                gap: 16px;
-                padding: 20px 0;
-                width: 100%;
-                background: rgba(10, 14, 26, 0.96);
+                position: fixed;
+                inset: 0;
+                top: 70px;
+                background: var(--bg-glass);
                 backdrop-filter: blur(20px);
-                position: absolute;
-                top: 72px;
-                left: 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 40px 24px;
+                gap: 4px;
+                z-index: 999;
             }
             .nav-links.open {
                 display: flex;
             }
-            .mobile-toggle {
-                display: block;
+            .nav-links a {
+                width: 100%;
+                padding: 14px 20px;
+                font-size: 1.1rem;
             }
-            .hero h1 {
-                font-size: 2.4rem;
+            .section-title {
+                font-size: 1.8rem;
             }
-            .amount-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .toast-container {
-                left: 16px;
-                right: 16px;
-                max-width: 100%;
+            .hero-content h1 {
+                font-size: 2.6rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .hero h1 {
+        @media (max-width: 640px) {
+            .hero-content h1 {
                 font-size: 2rem;
             }
-            .stats-grid {
+            .players-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .news-grid {
                 grid-template-columns: 1fr;
             }
-            .donation-grid {
-                gap: 24px;
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            .btn {
-                padding: 12px 24px;
-                font-size: 0.9rem;
+            .match-item {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .match-teams {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .match-meta {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .admin-table-wrap {
+                overflow-x: auto;
+            }
+            .admin-form {
+                padding: 20px;
+            }
+            .auth-card {
+                padding: 32px 20px;
+            }
+            .hero-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .hero-stats .stat .number {
+                font-size: 1.2rem;
             }
         }
 
-        /* scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
+        /* ============================================================
+               ADMIN MOBILE SIDEBAR TOGGLE
+               ============================================================ */
+        .admin-mobile-bar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #6366f1;
-            border-radius: 100px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #818cf8;
+        @media (max-width: 1024px) {
+            .admin-mobile-bar {
+                display: flex;
+            }
         }
 
-        /* loading spinner */
+        /* ============================================================
+               LOADING SPINNER
+               ============================================================ */
         .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-top-color: #fff;
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
@@ -831,678 +1289,1507 @@
             }
         }
 
-        /* copy button */
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: none;
-            color: var(--text-secondary);
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: var(--font);
-        }
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: var(--text-primary);
-        }
-
-        .flex-between {
+        /* ============================================================
+               TOAST NOTIFICATION
+               ============================================================ */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .mt-16 {
-            margin-top: 16px;
-        }
-        .mt-24 {
-            margin-top: 24px;
-        }
-        .mb-8 {
-            margin-bottom: 8px;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .text-muted {
-            color: var(--text-muted);
-        }
-        .gap-8 {
+            flex-direction: column;
             gap: 8px;
         }
-        .gap-12 {
-            gap: 12px;
-        }
-        .flex {
-            display: flex;
-        }
-        .flex-center {
+        .toast {
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            font-weight: 500;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 10px;
+            animation: slideUp 0.3s ease;
+            min-width: 280px;
         }
-        .flex-col {
-            flex-direction: column;
+        .toast-success {
+            border-left: 4px solid #10B981;
         }
-        .w-full {
-            width: 100%;
+        .toast-error {
+            border-left: 4px solid #EF4444;
+        }
+        .toast-info {
+            border-left: 4px solid var(--primary);
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+               EMPTY STATE
+               ============================================================ */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-secondary);
+        }
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+        .empty-state h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        /* ============================================================
+               ANIMATIONS
+               ============================================================ */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        .delay-3 {
+            animation-delay: 0.3s;
         }
     </style>
 </head>
 <body>
 
-    <!-- Orbs -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
     <!-- ============================================================
-    NAVBAR
+    TOAST CONTAINER
     ============================================================ -->
-    <nav class="navbar container">
-        <a href="index.php" class="logo">
-            <i class="fas fa-hand-holding-heart"></i> DonateNow
-        </a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="#donate">Donate</a></li>
-            <li><a href="admin.php">Admin</a></li>
-            <li><a href="#donations">Donations</a></li>
-            <li><a href="admin.php" class="nav-cta"><i class="fas fa-user-cog"></i> Dashboard</a></li>
-        </ul>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-    </nav>
-
-    <!-- ============================================================
-    HERO
-    ============================================================ -->
-    <section class="hero container">
-        <div class="hero-badge">
-            <i class="fas fa-bolt"></i> 2026 · Bakong Powered
-        </div>
-        <h1>
-            Support Our Mission<br />
-            <span class="highlight">With One Click</span>
-        </h1>
-        <p>
-            Every contribution makes a difference. Donate securely via Bakong KHQR
-            and help us build a better tomorrow.
-        </p>
-        <div class="hero-actions">
-            <a href="#donate" class="btn btn-primary">
-                <i class="fas fa-heart"></i> Donate Now
-            </a>
-            <a href="admin.php" class="btn btn-outline">
-                <i class="fas fa-chart-simple"></i> Admin Panel
-            </a>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    STATS
-    ============================================================ -->
-    <?php
-    // Simple stats – we'll fetch from DB via JS or include inline
-    $stats = [
-        'total_donations' => 0,
-        'total_amount'    => 0,
-        'donors_count'    => 0,
-        'pending_count'   => 0,
-    ];
-    // Try to connect and get real stats
-    try {
-        $db = new PDO('sqlite:donations.db');
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create tables if not exist
-        $db->exec("
-            CREATE TABLE IF NOT EXISTS donations (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                donor_name TEXT,
-                donor_email TEXT,
-                amount REAL,
-                currency TEXT DEFAULT 'USD',
-                reference TEXT UNIQUE,
-                status TEXT DEFAULT 'pending',
-                bakong_id TEXT,
-                merchant_name TEXT,
-                notes TEXT,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
-        ");
-        $db->exec("
-            CREATE TABLE IF NOT EXISTS settings (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                setting_key TEXT UNIQUE,
-                setting_value TEXT
-            )
-        ");
-        // Insert default API key if not exists
-        $stmt = $db->prepare("INSERT OR IGNORE INTO settings (setting_key, setting_value) VALUES ('api_key', '492f999bec2a869f553ed99fa10434de1fa0cafca4b8f746e455b6599421ee3c')");
-        $stmt->execute();
-
-        $stmt = $db->query("SELECT COUNT(*) as count, COALESCE(SUM(amount), 0) as total, COUNT(DISTINCT donor_email) as donors FROM donations WHERE status = 'completed'");
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stats['total_donations'] = $row['count'] ?? 0;
-        $stats['total_amount'] = $row['total'] ?? 0;
-        $stats['donors_count'] = $row['donors'] ?? 0;
-
-        $stmt = $db->query("SELECT COUNT(*) as count FROM donations WHERE status = 'pending'");
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stats['pending_count'] = $row['count'] ?? 0;
-    } catch (Exception $e) {
-        // Silent fail – stats stay 0
-    }
-    ?>
-
-    <div class="container">
-        <div class="stats-grid">
-            <div class="stat-card glass">
-                <div class="number">$<?= number_format($stats['total_amount'], 2) ?></div>
-                <div class="label">Total Raised</div>
-            </div>
-            <div class="stat-card glass">
-                <div class="number"><?= $stats['total_donations'] ?></div>
-                <div class="label">Donations</div>
-            </div>
-            <div class="stat-card glass">
-                <div class="number"><?= $stats['donors_count'] ?></div>
-                <div class="label">Donors</div>
-            </div>
-            <div class="stat-card glass">
-                <div class="number"><?= $stats['pending_count'] ?></div>
-                <div class="label">Pending</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================
-    DONATION SECTION
-    ============================================================ -->
-    <section id="donate" class="container" style="padding: 20px 0 60px;">
-        <div class="text-center">
-            <h2 class="section-title">Make a Donation</h2>
-            <p class="section-sub">Choose an amount or enter custom, then pay securely via Bakong KHQR</p>
-        </div>
-
-        <div class="donation-grid">
-            <!-- LEFT: Form -->
-            <div class="glass" style="padding: 32px 28px;">
-                <form id="donationForm" autocomplete="off">
-                    <div class="form-group">
-                        <label for="donorName">Your Name</label>
-                        <input type="text" id="donorName" placeholder="e.g. John Doe" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="donorEmail">Email Address</label>
-                        <input type="email" id="donorEmail" placeholder="john@example.com" required />
-                    </div>
-
-                    <label style="display:block;font-weight:500;font-size:0.9rem;color:var(--text-secondary);margin-bottom:8px;">Select Amount (USD)</label>
-                    <div class="amount-grid" id="amountGrid">
-                        <button type="button" class="amount-btn" data-amount="1">$1</button>
-                        <button type="button" class="amount-btn" data-amount="5">$5</button>
-                        <button type="button" class="amount-btn active" data-amount="10">$10</button>
-                        <button type="button" class="amount-btn" data-amount="25">$25</button>
-                        <button type="button" class="amount-btn" data-amount="50">$50</button>
-                        <button type="button" class="amount-btn" data-amount="100">$100</button>
-                        <button type="button" class="amount-btn" data-amount="250">$250</button>
-                        <button type="button" class="amount-btn" data-amount="500">$500</button>
-                    </div>
-
-                    <div class="custom-amount-wrap">
-                        <label for="customAmount">Custom:</label>
-                        <input type="number" id="customAmount" placeholder="Enter amount" min="0.5" step="0.5" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="donationNote">Note (optional)</label>
-                        <input type="text" id="donationNote" placeholder="Leave a message..." />
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-full" style="justify-content:center;padding:16px;" id="payBtn">
-                        <i class="fas fa-qrcode"></i> Generate QR & Pay
-                    </button>
-                </form>
-            </div>
-
-            <!-- RIGHT: QR Display -->
-            <div class="glass qr-display" id="qrDisplay">
-                <div class="qr-placeholder" id="qrPlaceholder">
-                    <i class="fas fa-qrcode"></i>
-                    <span>Your QR code will appear here</span>
-                </div>
-                <img id="qrImage" style="display:none;" alt="QR Code" />
-                <div class="qr-label" id="qrLabel">Scan with Bakong app to pay</div>
-                <div class="qr-ref" id="qrRef"></div>
-
-                <div id="paymentStatus" class="payment-status"></div>
-
-                <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-                    <button class="btn btn-outline" style="padding:8px 18px;font-size:0.85rem;" id="checkStatusBtn" disabled>
-                        <i class="fas fa-sync-alt"></i> Check Status
-                    </button>
-                    <button class="btn btn-outline" style="padding:8px 18px;font-size:0.85rem;" id="copyRefBtn" disabled>
-                        <i class="fas fa-copy"></i> Copy Ref
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    RECENT DONATIONS
-    ============================================================ -->
-    <section id="donations" class="container" style="padding: 0 0 60px;">
-        <div class="flex-between">
-            <div>
-                <h2 class="section-title" style="font-size:1.6rem;">Recent Donations</h2>
-                <p class="section-sub" style="font-size:0.95rem;">Latest contributions from our supporters</p>
-            </div>
-            <a href="admin.php" class="btn btn-outline" style="padding:8px 20px;font-size:0.9rem;">
-                <i class="fas fa-arrow-right"></i> View All
-            </a>
-        </div>
-
-        <div class="glass" style="padding:4px 0;overflow:hidden;">
-            <div class="donations-table-wrap">
-                <table class="donations-table" id="recentDonationsTable">
-                    <thead>
-                        <tr>
-                            <th>Donor</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="recentDonationsBody">
-                        <!-- populated by JS -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FOOTER
-    ============================================================ -->
-    <footer class="footer container">
-        <p>
-            &copy; 2026 <a href="#">DonateNow</a> &middot; Built with
-            <i class="fas fa-heart" style="color:#ef4444;"></i> for a better future
-            &middot; Powered by Bakong KHQR
-        </p>
-        <p style="font-size:0.8rem;margin-top:4px;">
-            <i class="fas fa-shield-alt"></i> Secure payments via CamRapidPay
-        </p>
-    </footer>
-
-    <!-- Toast container -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================
-    JAVASCRIPT
+    APP SHELL — dynamically rendered by JavaScript
+    ============================================================ -->
+    <div id="app"></div>
+
+    <!-- ============================================================
+    JAVASCRIPT — Full SPA with Admin Panel
     ============================================================ -->
     <script>
-        // ============================================================
-        //  DOM refs
-        // ============================================================
-        const form = document.getElementById('donationForm');
-        const donorName = document.getElementById('donorName');
-        const donorEmail = document.getElementById('donorEmail');
-        const customAmount = document.getElementById('customAmount');
-        const amountBtns = document.querySelectorAll('.amount-btn');
-        const payBtn = document.getElementById('payBtn');
-        const qrPlaceholder = document.getElementById('qrPlaceholder');
-        const qrImage = document.getElementById('qrImage');
-        const qrLabel = document.getElementById('qrLabel');
-        const qrRef = document.getElementById('qrRef');
-        const paymentStatus = document.getElementById('paymentStatus');
-        const checkStatusBtn = document.getElementById('checkStatusBtn');
-        const copyRefBtn = document.getElementById('copyRefBtn');
-        const recentBody = document.getElementById('recentDonationsBody');
-        const toastContainer = document.getElementById('toastContainer');
+        // ================================================================
+        // 1. STATE & CONFIG
+        // ================================================================
 
-        let currentReference = null;
-        let currentAmount = 10;
-        let pollingInterval = null;
+        // Supabase config (using the provided keys)
+        const SUPABASE_CONFIG = {
+            url: "https://sqpygoodzzfvbwfpccoi.supabase.co",
+            anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxcHlnb29kenpmdmJ3ZnBjY29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5OTE5NjMsImV4cCI6MjA5NDU2Nzk2M30.3vCMLOa3AFjTdK2jOmNPQNC3WncJ4hKRi_B5GPngtgE"
+        };
 
-        // ============================================================
-        //  Toast
-        // ============================================================
+        // App state
+        let state = {
+            currentPage: 'home', // home | admin | admin-players | admin-matches | admin-news | admin-gallery | admin-settings
+            isLoggedIn: false,
+            user: null,
+            theme: 'light',
+            players: [],
+            matches: [],
+            news: [],
+            gallery: [],
+            adminView: 'players', // players | matches | news | gallery | settings
+            selectedItem: null,
+            formMode: 'add', // add | edit
+            loading: false,
+        };
+
+        // ================================================================
+        // 2. SUPABASE CLIENT (simulated via fetch — real SDK would be used in production)
+        // ================================================================
+
+        // We'll use fetch directly to Supabase REST API
+        // In a real Next.js app, you'd use @supabase/supabase-js
+
+        const supabase = {
+            headers: {
+                'apikey': SUPABASE_CONFIG.anonKey,
+                'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+            },
+
+            async query(table, method = 'GET', body = null, params = '') {
+                const url = `${SUPABASE_CONFIG.url}/rest/v1/${table}${params}`;
+                const options = {
+                    method,
+                    headers: this.headers,
+                };
+                if (body) options.body = JSON.stringify(body);
+
+                try {
+                    const res = await fetch(url, options);
+                    if (!res.ok) {
+                        const err = await res.text();
+                        throw new Error(err || `HTTP ${res.status}`);
+                    }
+                    if (res.status === 204) return [];
+                    return await res.json();
+                } catch (e) {
+                    console.error('Supabase error:', e);
+                    // For demo, if table doesn't exist, return mock data
+                    return null;
+                }
+            },
+
+            // Auth helpers (simulated)
+            async signIn(email, password) {
+                // In a real app, use supabase.auth.signInWithPassword
+                // For this demo, we'll simulate with a hardcoded admin
+                if (email === 'admin@anajak.com' && password === 'admin123') {
+                    return {
+                        data: { user: { id: '1', email, role: 'admin' } },
+                        error: null
+                    };
+                }
+                return { data: null, error: { message: 'Invalid credentials' } };
+            },
+
+            async signUp(email, password) {
+                // Simulate signup
+                return {
+                    data: { user: { id: '2', email, role: 'user' } },
+                    error: null
+                };
+            },
+
+            async signOut() {
+                return { error: null };
+            }
+        };
+
+        // ================================================================
+        // 3. DATA HELPERS (with fallback mock data)
+        // ================================================================
+
+        const MOCK_DATA = {
+            players: [
+                { id: '1', name: 'Sokha Meas', position: 'Forward', number: 10, age: 24, goals: 12, assists: 7, avatar: '' },
+                { id: '2', name: 'Ratanak Pich', position: 'Midfielder', number: 8, age: 26, goals: 5, assists: 11,
+                avatar: '' },
+                { id: '3', name: 'Vireak Chea', position: 'Defender', number: 4, age: 28, goals: 2, assists: 3,
+                avatar: '' },
+                { id: '4', name: 'Sopheak Ngin', position: 'Goalkeeper', number: 1, age: 30, goals: 0, assists: 1,
+                    avatar: '' },
+                { id: '5', name: 'Dara Kim', position: 'Forward', number: 9, age: 22, goals: 8, assists: 4, avatar: '' },
+                { id: '6', name: 'Boran Sok', position: 'Midfielder', number: 6, age: 25, goals: 3, assists: 9,
+                avatar: '' },
+            ],
+            matches: [
+                { id: '1', home: 'AnajakAngkor', away: 'Siem Reap United', homeScore: 3, awayScore: 1, date: '2026-07-15',
+                    venue: 'Olympic Stadium', status: 'completed' },
+                { id: '2', home: 'Phnom Penh FC', away: 'AnajakAngkor', homeScore: 0, awayScore: 2, date: '2026-07-22',
+                    venue: 'National Stadium', status: 'completed' },
+                { id: '3', home: 'AnajakAngkor', away: 'Battambang Eagles', homeScore: null, awayScore: null,
+                    date: '2026-08-05', venue: 'Olympic Stadium', status: 'upcoming' },
+                { id: '4', home: 'Kampong Cham Tigers', away: 'AnajakAngkor', homeScore: null, awayScore: null,
+                    date: '2026-08-12', venue: 'Kampong Cham Stadium', status: 'upcoming' },
+            ],
+            news: [
+                { id: '1', title: 'AnajakAngkor Wins Derby Match!', excerpt: 'A thrilling 3-1 victory over Siem Reap United in the local derby.',
+                    date: '2026-07-16', category: 'Match Report' },
+                { id: '2', title: 'New Signing: Dara Kim Joins the Squad', excerpt: 'The young forward signs a 3-year deal with the club.',
+                    date: '2026-07-10', category: 'Transfer' },
+                { id: '3', title: 'Pre-season Training Camp Announced', excerpt: 'The team will head to Thailand for a 2-week training camp.',
+                    date: '2026-07-01', category: 'News' },
+            ],
+            gallery: [
+                { id: '1', title: 'Team Photo 2026', url: '' },
+                { id: '2', title: 'Training Session', url: '' },
+                { id: '3', title: 'Victory Celebration', url: '' },
+                { id: '4', title: 'Fans in Stands', url: '' },
+                { id: '5', title: 'Award Ceremony', url: '' },
+                { id: '6', title: 'Youth Academy', url: '' },
+            ]
+        };
+
+        async function fetchData(table) {
+            const result = await supabase.query(table);
+            if (result && Array.isArray(result)) return result;
+            // Fallback to mock data
+            return MOCK_DATA[table] || [];
+        }
+
+        async function insertData(table, data) {
+            const result = await supabase.query(table, 'POST', data);
+            if (result && Array.isArray(result)) return result[0];
+            // Mock: generate an ID and return
+            return { ...data, id: Date.now().toString() };
+        }
+
+        async function updateData(table, id, data) {
+            const result = await supabase.query(table, 'PATCH', data, `?id=eq.${id}`);
+            if (result && Array.isArray(result)) return result[0];
+            return { ...data, id };
+        }
+
+        async function deleteData(table, id) {
+            await supabase.query(table, 'DELETE', null, `?id=eq.${id}`);
+            return true;
+        }
+
+        // ================================================================
+        // 4. RENDER ENGINE
+        // ================================================================
+
+        const app = document.getElementById('app');
+
+        // --- Helper: Toast ---
         function showToast(message, type = 'info') {
-            const icons = {
-                success: 'fa-check-circle',
-                error: 'fa-exclamation-circle',
-                info: 'fa-info-circle'
-            };
+            const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> ${message}`;
-            toastContainer.appendChild(toast);
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                ${message}
+            `;
+            container.appendChild(toast);
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transform = 'translateX(40px)';
-                setTimeout(() => toast.remove(), 400);
-            }, 4000);
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
         }
 
-        // ============================================================
-        //  Amount selection
-        // ============================================================
-        amountBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                amountBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                customAmount.value = '';
-                currentAmount = parseFloat(this.dataset.amount);
-            });
-        });
+        // --- Helper: Render with transition ---
+        function render(html) {
+            app.style.opacity = '0';
+            setTimeout(() => {
+                app.innerHTML = html;
+                app.style.opacity = '1';
+            }, 80);
+        }
 
-        customAmount.addEventListener('input', function() {
-            const val = parseFloat(this.value);
-            if (val > 0) {
-                amountBtns.forEach(b => b.classList.remove('active'));
-                currentAmount = val;
+        // --- Theme ---
+        function toggleTheme() {
+            state.theme = state.theme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', state.theme);
+            localStorage.setItem('theme', state.theme);
+            renderApp();
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved) {
+                state.theme = saved;
+                document.documentElement.setAttribute('data-theme', saved);
             }
-        });
+        }
 
-        // ============================================================
-        //  Load recent donations
-        // ============================================================
-        async function loadRecentDonations() {
+        // --- Navigation ---
+        function navigate(page, data = null) {
+            state.currentPage = page;
+            if (page.startsWith('admin')) {
+                state.adminView = page.replace('admin-', '') || 'players';
+            }
+            state.selectedItem = data;
+            renderApp();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- Auth ---
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            state.loading = true;
+            renderApp();
+
+            const { data, error } = await supabase.signIn(email, password);
+            state.loading = false;
+
+            if (error) {
+                showToast(error.message, 'error');
+                renderApp();
+                return;
+            }
+            state.isLoggedIn = true;
+            state.user = data.user;
+            showToast(`Welcome back, ${data.user.email}!`, 'success');
+            navigate('admin');
+        }
+
+        async function handleLogout() {
+            await supabase.signOut();
+            state.isLoggedIn = false;
+            state.user = null;
+            showToast('Logged out', 'info');
+            navigate('home');
+        }
+
+        // --- CRUD Handlers ---
+        async function handleAddItem(table, formData) {
             try {
-                const res = await fetch('api/donations.php?limit=5');
-                const data = await res.json();
-                if (data.success) {
-                    recentBody.innerHTML = data.donations.map(d => `
-                                <tr>
-                                    <td>${escapeHtml(d.donor_name || 'Anonymous')}</td>
-                                    <td>$${parseFloat(d.amount).toFixed(2)}</td>
-                                    <td><span class="status-badge ${d.status}">${d.status}</span></td>
-                                    <td>${d.created_at ? new Date(d.created_at).toLocaleDateString() : '-'}</td>
-                                </tr>
-                            `).join('');
+                const result = await insertData(table, formData);
+                if (result) {
+                    showToast(`${table.slice(0, -1)} added successfully!`, 'success');
+                    await refreshData(table);
+                    navigate(`admin-${table}`);
                 }
             } catch (e) {
-                // ignore
+                showToast(e.message, 'error');
             }
         }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        async function handleEditItem(table, id, formData) {
+            try {
+                const result = await updateData(table, id, formData);
+                if (result) {
+                    showToast(`${table.slice(0, -1)} updated successfully!`, 'success');
+                    await refreshData(table);
+                    navigate(`admin-${table}`);
+                }
+            } catch (e) {
+                showToast(e.message, 'error');
+            }
         }
 
-        // ============================================================
-        //  Create payment
-        // ============================================================
-        form.addEventListener('submit', async function(e) {
+        async function handleDeleteItem(table, id) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+            try {
+                await deleteData(table, id);
+                showToast('Deleted successfully!', 'success');
+                await refreshData(table);
+                navigate(`admin-${table}`);
+            } catch (e) {
+                showToast(e.message, 'error');
+            }
+        }
+
+        async function refreshData(table) {
+            const data = await fetchData(table);
+            state[table] = data;
+        }
+
+        // ================================================================
+        // 5. PAGE RENDERERS
+        // ================================================================
+
+        // --- Header ---
+        function renderHeader() {
+            const isAdmin = state.currentPage.startsWith('admin');
+            const isLoggedIn = state.isLoggedIn;
+
+            return `
+                <header class="header" id="mainHeader">
+                    <div class="container header-inner">
+                        <a href="#" onclick="navigate('home')" class="logo">
+                            <img src="https://e.top4top.io/p_3731sfged1.jpg" alt="AnajakAngkor" />
+                            <span>AnajakAngkor</span>
+                        </a>
+                        <nav class="nav-links" id="navLinks">
+                            <a href="#" onclick="navigate('home')" class="${state.currentPage === 'home' ? 'active' : ''}">Home</a>
+                            <a href="#" onclick="navigate('home')">Players</a>
+                            <a href="#" onclick="navigate('home')">Matches</a>
+                            <a href="#" onclick="navigate('home')">News</a>
+                            <a href="#" onclick="navigate('home')">Gallery</a>
+                            ${isLoggedIn ? `<a href="#" onclick="navigate('admin')" class="${state.currentPage === 'admin' || state.currentPage.startsWith('admin-') ? 'active' : ''}"><i class="fas fa-crown"></i> Admin</a>` : ''}
+                        </nav>
+                        <div class="nav-actions">
+                            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                                <i class="fas ${state.theme === 'light' ? 'fa-moon' : 'fa-sun'}"></i>
+                            </button>
+                            ${!isLoggedIn && !isAdmin ? `<button class="btn btn-primary btn-sm" onclick="navigate('login')"><i class="fas fa-sign-in-alt"></i> Login</button>` : ''}
+                            ${isLoggedIn ? `<button class="btn btn-outline btn-sm" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>` : ''}
+                            <button class="mobile-toggle" onclick="toggleMobileNav()">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+            `;
+        }
+
+        function toggleMobileNav() {
+            const nav = document.getElementById('navLinks');
+            if (nav) nav.classList.toggle('open');
+        }
+
+        // --- Footer ---
+        function renderFooter() {
+            return `
+                <footer class="footer">
+                    <div class="container">
+                        <div class="footer-grid">
+                            <div>
+                                <div class="logo" style="margin-bottom:12px;">
+                                    <img src="https://e.top4top.io/p_3731sfged1.jpg" alt="AnajakAngkor" style="height:36px;" />
+                                    <span>AnajakAngkor</span>
+                                </div>
+                                <p>Cambodia's premier football club. Building champions since 2024.</p>
+                                <div class="footer-socials" style="margin-top:12px;">
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                            <div>
+                                <h4>Quick Links</h4>
+                                <a href="#" onclick="navigate('home')">Home</a><br />
+                                <a href="#" onclick="navigate('home')">Players</a><br />
+                                <a href="#" onclick="navigate('home')">Matches</a><br />
+                                <a href="#" onclick="navigate('home')">News</a>
+                            </div>
+                            <div>
+                                <h4>Club</h4>
+                                <a href="#">About</a><br />
+                                <a href="#">History</a><br />
+                                <a href="#">Academy</a><br />
+                                <a href="#">Contact</a>
+                            </div>
+                            <div>
+                                <h4>Contact</h4>
+                                <p><i class="fas fa-map-marker-alt"></i> Phnom Penh, Cambodia</p>
+                                <p><i class="fas fa-phone"></i> +855 12 345 678</p>
+                                <p><i class="fas fa-envelope"></i> info@anajakangkor.com</p>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            <span>© 2026 AnajakAngkor Football Club. All rights reserved.</span>
+                            <span>Built with <i class="fas fa-heart" style="color:#EF4444;"></i> in Cambodia</span>
+                        </div>
+                    </div>
+                </footer>
+            `;
+        }
+
+        // --- HOME PAGE ---
+        function renderHome() {
+            const players = state.players.length ? state.players : MOCK_DATA.players;
+            const matches = state.matches.length ? state.matches : MOCK_DATA.matches;
+            const news = state.news.length ? state.news : MOCK_DATA.news;
+            const gallery = state.gallery.length ? state.gallery : MOCK_DATA.gallery;
+
+            // Stats
+            const totalPlayers = players.length;
+            const totalMatches = matches.length;
+            const goalsFor = matches.filter(m => m.homeScore !== null).reduce((acc, m) => acc + (m.home === 'AnajakAngkor' ?
+                m.homeScore : m.awayScore), 0);
+
+            return `
+                ${renderHeader()}
+                <main>
+                    <!-- HERO -->
+                    <section class="hero">
+                        <div class="container hero-grid">
+                            <div class="hero-content fade-in">
+                                <h1>
+                                    Building <span class="highlight">Champions</span>,<br />
+                                    One Match at a Time
+                                </h1>
+                                <p>
+                                    Welcome to AnajakAngkor — Cambodia's rising football powerhouse.
+                                    Join us on our journey to glory.
+                                </p>
+                                <div class="hero-actions">
+                                    <button class="btn btn-primary btn-lg" onclick="navigate('home')">
+                                        <i class="fas fa-futbol"></i> Explore Team
+                                    </button>
+                                    <button class="btn btn-outline btn-lg" onclick="navigate('login')">
+                                        <i class="fas fa-crown"></i> Admin Panel
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="hero-image fade-in delay-2">
+                                <div class="hero-card">
+                                    <img src="https://e.top4top.io/p_3731sfged1.jpg" alt="Team Logo" />
+                                    <h3>AnajakAngkor FC</h3>
+                                    <p>Est. 2024 • Phnom Penh</p>
+                                    <div class="hero-stats">
+                                        <div class="stat">
+                                            <div class="number">${totalPlayers}</div>
+                                            <div class="label">Players</div>
+                                        </div>
+                                        <div class="stat">
+                                            <div class="number">${totalMatches}</div>
+                                            <div class="label">Matches</div>
+                                        </div>
+                                        <div class="stat">
+                                            <div class="number">${goalsFor}</div>
+                                            <div class="label">Goals For</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- PLAYERS -->
+                    <section class="section" id="players">
+                        <div class="container">
+                            <div class="section-header">
+                                <div>
+                                    <h2 class="section-title">Our Squad</h2>
+                                    <p class="section-subtitle">Meet the warriors wearing the AnajakAngkor jersey.</p>
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="navigate('admin-players')">
+                                    <i class="fas fa-user-plus"></i> Manage Players
+                                </button>
+                            </div>
+                            <div class="players-grid">
+                                ${players.map(p => `
+                                    <div class="player-card fade-in">
+                                        <div class="number">${p.number || '#'}</div>
+                                        <div class="avatar" style="background:linear-gradient(135deg, #6C3CE1, #A855F7); display:flex; align-items:center; justify-content:center; color:#fff; font-size:2rem; font-weight:700;">
+                                            ${p.avatar ? `<img src="${p.avatar}" alt="${p.name}" class="avatar" />` : p.name.charAt(0)}
+                                        </div>
+                                        <div class="name">${p.name}</div>
+                                        <div class="position">${p.position || 'Player'}</div>
+                                        <div class="stats-mini">
+                                            <span>⚽ ${p.goals || 0}</span>
+                                            <span>🅰️ ${p.assists || 0}</span>
+                                            <span>🎂 ${p.age || '-'}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- MATCHES -->
+                    <section class="section" style="background:var(--bg-surface); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+                        <div class="container">
+                            <div class="section-header">
+                                <div>
+                                    <h2 class="section-title">Fixtures & Results</h2>
+                                    <p class="section-subtitle">Follow our journey through the season.</p>
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="navigate('admin-matches')">
+                                    <i class="fas fa-calendar-plus"></i> Manage Matches
+                                </button>
+                            </div>
+                            <div class="matches-list">
+                                ${matches.map(m => `
+                                    <div class="match-item fade-in">
+                                        <div class="match-teams">
+                                            <span class="team"><strong>${m.home}</strong></span>
+                                            <span class="match-score">${m.homeScore !== null ? m.homeScore : '?'} - ${m.awayScore !== null ? m.awayScore : '?'}</span>
+                                            <span class="team"><strong>${m.away}</strong></span>
+                                        </div>
+                                        <div class="match-meta">
+                                            <span class="date"><i class="far fa-calendar-alt"></i> ${m.date}</span>
+                                            <span><i class="fas fa-map-pin"></i> ${m.venue || 'TBD'}</span>
+                                            <span class="badge ${m.status === 'completed' ? 'badge-success' : 'badge-warning'}">${m.status || 'upcoming'}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- NEWS -->
+                    <section class="section">
+                        <div class="container">
+                            <div class="section-header">
+                                <div>
+                                    <h2 class="section-title">Latest News</h2>
+                                    <p class="section-subtitle">Stay updated with everything AnajakAngkor.</p>
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="navigate('admin-news')">
+                                    <i class="fas fa-newspaper"></i> Manage News
+                                </button>
+                            </div>
+                            <div class="news-grid">
+                                ${news.map(n => `
+                                    <div class="news-card fade-in">
+                                        <div class="image">
+                                            <i class="fas fa-futbol"></i>
+                                        </div>
+                                        <div class="body">
+                                            <span class="tag">${n.category || 'News'}</span>
+                                            <h4>${n.title}</h4>
+                                            <p>${n.excerpt || ''}</p>
+                                            <span class="date"><i class="far fa-calendar-alt"></i> ${n.date}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- GALLERY -->
+                    <section class="section" style="background:var(--bg-surface); border-top:1px solid var(--border-color);">
+                        <div class="container">
+                            <div class="section-header">
+                                <div>
+                                    <h2 class="section-title">Gallery</h2>
+                                    <p class="section-subtitle">Moments that define our club.</p>
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="navigate('admin-gallery')">
+                                    <i class="fas fa-images"></i> Manage Gallery
+                                </button>
+                            </div>
+                            <div class="gallery-grid">
+                                ${gallery.map(g => `
+                                    <div class="gallery-item fade-in">
+                                        <div style="background:linear-gradient(135deg, #6C3CE1, #EC4899); width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.3); font-size:3rem;">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                        <div class="overlay">${g.title || 'Photo'}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                ${renderFooter()}
+            `;
+        }
+
+        // --- LOGIN PAGE ---
+        function renderLogin() {
+            return `
+                ${renderHeader()}
+                <div class="auth-page">
+                    <div class="auth-card fade-in">
+                        <div class="logo-auth">
+                            <img src="https://e.top4top.io/p_3731sfged1.jpg" alt="AnajakAngkor" />
+                            <span>AnajakAngkor</span>
+                        </div>
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to manage your team portal.</p>
+                        <form onsubmit="handleLogin(event)">
+                            <div class="form-group">
+                                <label for="loginEmail">Email</label>
+                                <input type="email" id="loginEmail" placeholder="admin@anajak.com" value="admin@anajak.com" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword">Password</label>
+                                <input type="password" id="loginPassword" placeholder="••••••••" value="admin123" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg" ${state.loading ? 'disabled' : ''}>
+                                ${state.loading ? '<span class="spinner" style="width:20px;height:20px;"></span> Signing in...' : '<i class="fas fa-sign-in-alt"></i> Sign In'}
+                            </button>
+                        </form>
+                        <div class="toggle-auth">
+                            Demo: <strong>admin@anajak.com</strong> / <strong>admin123</strong>
+                        </div>
+                    </div>
+                </div>
+                ${renderFooter()}
+            `;
+        }
+
+        // --- ADMIN LAYOUT ---
+        function renderAdminLayout(content) {
+            const views = ['players', 'matches', 'news', 'gallery', 'settings'];
+            const viewLabels = {
+                players: 'Players',
+                matches: 'Matches',
+                news: 'News',
+                gallery: 'Gallery',
+                settings: 'Settings'
+            };
+            const viewIcons = {
+                players: 'fa-users',
+                matches: 'fa-calendar-check',
+                news: 'fa-newspaper',
+                gallery: 'fa-images',
+                settings: 'fa-cog'
+            };
+
+            const currentView = state.adminView || 'players';
+
+            return `
+                <div class="admin-mobile-bar">
+                    <div class="logo" style="font-size:1rem;">
+                        <img src="https://e.top4top.io/p_3731sfged1.jpg" alt="AnajakAngkor" style="height:28px;" />
+                        <span>Admin</span>
+                    </div>
+                    <button class="mobile-toggle" onclick="document.getElementById('adminSidebar').classList.toggle('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <div class="admin-layout">
+                    <!-- Sidebar -->
+                    <aside class="admin-sidebar" id="adminSidebar">
+                        <div class="logo-sm">
+                            <img src="https://e.top4top.io/p_3731sfged1.jpg" alt="AnajakAngkor" />
+                            <span>AnajakAngkor</span>
+                        </div>
+                        ${views.map(v => `
+                            <a href="#" class="nav-item ${currentView === v ? 'active' : ''}" onclick="navigate('admin-${v}')">
+                                <i class="fas ${viewIcons[v]}"></i>
+                                ${viewLabels[v]}
+                                ${v === 'players' ? `<span class="badge badge-primary">${state.players.length}</span>` : ''}
+                                ${v === 'matches' ? `<span class="badge badge-primary">${state.matches.length}</span>` : ''}
+                                ${v === 'news' ? `<span class="badge badge-primary">${state.news.length}</span>` : ''}
+                                ${v === 'gallery' ? `<span class="badge badge-primary">${state.gallery.length}</span>` : ''}
+                            </a>
+                        `).join('')}
+                        <div class="sidebar-footer">
+                            <a href="#" class="nav-item" onclick="navigate('home')">
+                                <i class="fas fa-arrow-left"></i> Back to Site
+                            </a>
+                            <a href="#" class="nav-item" onclick="handleLogout()" style="color:#EF4444;">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <main class="admin-main">
+                        ${content}
+                    </main>
+                </div>
+            `;
+        }
+
+        // --- ADMIN: Players ---
+        function renderAdminPlayers() {
+            const players = state.players.length ? state.players : MOCK_DATA.players;
+            const showForm = state.selectedItem && state.selectedItem._form;
+
+            let formHtml = '';
+            if (showForm) {
+                const item = state.selectedItem._formData || {};
+                const isEdit = state.selectedItem._mode === 'edit';
+                formHtml = `
+                    <div class="admin-form" style="margin-bottom:32px;">
+                        <h3 style="margin-bottom:16px; font-weight:700;">${isEdit ? 'Edit Player' : 'Add New Player'}</h3>
+                        <form onsubmit="handlePlayerForm(event)">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="playerName" value="${item.name || ''}" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Position</label>
+                                <input type="text" id="playerPosition" value="${item.position || ''}" placeholder="Forward, Midfielder, Defender, Goalkeeper" />
+                            </div>
+                            <div class="form-group">
+                                <label>Number</label>
+                                <input type="number" id="playerNumber" value="${item.number || ''}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" id="playerAge" value="${item.age || ''}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Goals</label>
+                                <input type="number" id="playerGoals" value="${item.goals || 0}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Assists</label>
+                                <input type="number" id="playerAssists" value="${item.assists || 0}" />
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas ${isEdit ? 'fa-save' : 'fa-plus'}"></i> ${isEdit ? 'Update' : 'Add'} Player
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="navigate('admin-players')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            }
+
+            return renderAdminLayout(`
+                <div class="page-header">
+                    <div>
+                        <h2>Players <span class="badge badge-primary" style="font-size:0.8rem; vertical-align:middle;">${players.length}</span></h2>
+                        <p style="color:var(--text-secondary);">Manage your squad roster.</p>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn btn-primary btn-sm" onclick="showPlayerForm()">
+                            <i class="fas fa-user-plus"></i> Add Player
+                        </button>
+                    </div>
+                </div>
+                ${formHtml}
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Age</th>
+                                <th>Goals</th>
+                                <th>Assists</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${players.map(p => `
+                                <tr>
+                                    <td><strong>${p.number || '-'}</strong></td>
+                                    <td><strong>${p.name}</strong></td>
+                                    <td>${p.position || '-'}</td>
+                                    <td>${p.age || '-'}</td>
+                                    <td>${p.goals || 0}</td>
+                                    <td>${p.assists || 0}</td>
+                                    <td style="text-align:right;">
+                                        <div class="actions" style="justify-content:flex-end;">
+                                            <button class="edit-btn" onclick="editPlayer('${p.id}')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button class="delete-btn" onclick="handleDeleteItem('players', '${p.id}')"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                            ${players.length === 0 ? `
+                                <tr><td colspan="7">
+                                    <div class="empty-state">
+                                        <i class="fas fa-users"></i>
+                                        <h4>No players yet</h4>
+                                        <p>Add your first player to get started.</p>
+                                    </div>
+                                </td></tr>
+                            ` : ''}
+                        </tbody>
+                    </table>
+                </div>
+            `);
+        }
+
+        // --- ADMIN: Matches ---
+        function renderAdminMatches() {
+            const matches = state.matches.length ? state.matches : MOCK_DATA.matches;
+            const showForm = state.selectedItem && state.selectedItem._form;
+
+            let formHtml = '';
+            if (showForm) {
+                const item = state.selectedItem._formData || {};
+                const isEdit = state.selectedItem._mode === 'edit';
+                formHtml = `
+                    <div class="admin-form" style="margin-bottom:32px;">
+                        <h3 style="margin-bottom:16px; font-weight:700;">${isEdit ? 'Edit Match' : 'Add New Match'}</h3>
+                        <form onsubmit="handleMatchForm(event)">
+                            <div class="form-group">
+                                <label>Home Team</label>
+                                <input type="text" id="matchHome" value="${item.home || ''}" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Away Team</label>
+                                <input type="text" id="matchAway" value="${item.away || ''}" required />
+                            </div>
+                            <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                                <div>
+                                    <label>Home Score</label>
+                                    <input type="number" id="matchHomeScore" value="${item.homeScore !== null ? item.homeScore : ''}" />
+                                </div>
+                                <div>
+                                    <label>Away Score</label>
+                                    <input type="number" id="matchAwayScore" value="${item.awayScore !== null ? item.awayScore : ''}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" id="matchDate" value="${item.date || ''}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Venue</label>
+                                <input type="text" id="matchVenue" value="${item.venue || ''}" placeholder="Stadium name" />
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="matchStatus">
+                                    <option value="upcoming" ${item.status === 'upcoming' ? 'selected' : ''}>Upcoming</option>
+                                    <option value="completed" ${item.status === 'completed' ? 'selected' : ''}>Completed</option>
+                                    <option value="cancelled" ${item.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas ${isEdit ? 'fa-save' : 'fa-plus'}"></i> ${isEdit ? 'Update' : 'Add'} Match
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="navigate('admin-matches')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            }
+
+            return renderAdminLayout(`
+                <div class="page-header">
+                    <div>
+                        <h2>Matches <span class="badge badge-primary" style="font-size:0.8rem; vertical-align:middle;">${matches.length}</span></h2>
+                        <p style="color:var(--text-secondary);">Manage fixtures and results.</p>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn btn-primary btn-sm" onclick="showMatchForm()">
+                            <i class="fas fa-calendar-plus"></i> Add Match
+                        </button>
+                    </div>
+                </div>
+                ${formHtml}
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Home</th>
+                                <th>Score</th>
+                                <th>Away</th>
+                                <th>Date</th>
+                                <th>Venue</th>
+                                <th>Status</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${matches.map(m => `
+                                <tr>
+                                    <td><strong>${m.home}</strong></td>
+                                    <td><strong>${m.homeScore !== null ? m.homeScore : '?'} - ${m.awayScore !== null ? m.awayScore : '?'}</strong></td>
+                                    <td><strong>${m.away}</strong></td>
+                                    <td>${m.date || '-'}</td>
+                                    <td>${m.venue || '-'}</td>
+                                    <td><span class="badge ${m.status === 'completed' ? 'badge-success' : m.status === 'cancelled' ? 'badge-danger' : 'badge-warning'}">${m.status || 'upcoming'}</span></td>
+                                    <td style="text-align:right;">
+                                        <div class="actions" style="justify-content:flex-end;">
+                                            <button class="edit-btn" onclick="editMatch('${m.id}')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button class="delete-btn" onclick="handleDeleteItem('matches', '${m.id}')"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                            ${matches.length === 0 ? `
+                                <tr><td colspan="7">
+                                    <div class="empty-state">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <h4>No matches yet</h4>
+                                        <p>Schedule your first match.</p>
+                                    </div>
+                                </td></tr>
+                            ` : ''}
+                        </tbody>
+                    </table>
+                </div>
+            `);
+        }
+
+        // --- ADMIN: News ---
+        function renderAdminNews() {
+            const news = state.news.length ? state.news : MOCK_DATA.news;
+            const showForm = state.selectedItem && state.selectedItem._form;
+
+            let formHtml = '';
+            if (showForm) {
+                const item = state.selectedItem._formData || {};
+                const isEdit = state.selectedItem._mode === 'edit';
+                formHtml = `
+                    <div class="admin-form" style="margin-bottom:32px;">
+                        <h3 style="margin-bottom:16px; font-weight:700;">${isEdit ? 'Edit News' : 'Add News'}</h3>
+                        <form onsubmit="handleNewsForm(event)">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" id="newsTitle" value="${item.title || ''}" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Excerpt</label>
+                                <textarea id="newsExcerpt" rows="3">${item.excerpt || ''}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <input type="text" id="newsCategory" value="${item.category || 'News'}" placeholder="Match Report, Transfer, etc." />
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" id="newsDate" value="${item.date || ''}" />
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas ${isEdit ? 'fa-save' : 'fa-plus'}"></i> ${isEdit ? 'Update' : 'Add'} News
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="navigate('admin-news')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            }
+
+            return renderAdminLayout(`
+                <div class="page-header">
+                    <div>
+                        <h2>News <span class="badge badge-primary" style="font-size:0.8rem; vertical-align:middle;">${news.length}</span></h2>
+                        <p style="color:var(--text-secondary);">Manage club news and updates.</p>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn btn-primary btn-sm" onclick="showNewsForm()">
+                            <i class="fas fa-plus"></i> Add News
+                        </button>
+                    </div>
+                </div>
+                ${formHtml}
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${news.map(n => `
+                                <tr>
+                                    <td><strong>${n.title}</strong></td>
+                                    <td><span class="badge badge-info">${n.category || 'News'}</span></td>
+                                    <td>${n.date || '-'}</td>
+                                    <td style="text-align:right;">
+                                        <div class="actions" style="justify-content:flex-end;">
+                                            <button class="edit-btn" onclick="editNews('${n.id}')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button class="delete-btn" onclick="handleDeleteItem('news', '${n.id}')"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                            ${news.length === 0 ? `
+                                <tr><td colspan="4">
+                                    <div class="empty-state">
+                                        <i class="fas fa-newspaper"></i>
+                                        <h4>No news yet</h4>
+                                        <p>Publish your first news article.</p>
+                                    </div>
+                                </td></tr>
+                            ` : ''}
+                        </tbody>
+                    </table>
+                </div>
+            `);
+        }
+
+        // --- ADMIN: Gallery ---
+        function renderAdminGallery() {
+            const gallery = state.gallery.length ? state.gallery : MOCK_DATA.gallery;
+            const showForm = state.selectedItem && state.selectedItem._form;
+
+            let formHtml = '';
+            if (showForm) {
+                const item = state.selectedItem._formData || {};
+                const isEdit = state.selectedItem._mode === 'edit';
+                formHtml = `
+                    <div class="admin-form" style="margin-bottom:32px;">
+                        <h3 style="margin-bottom:16px; font-weight:700;">${isEdit ? 'Edit Gallery Item' : 'Add Gallery Item'}</h3>
+                        <form onsubmit="handleGalleryForm(event)">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" id="galleryTitle" value="${item.title || ''}" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Image URL (optional)</label>
+                                <input type="text" id="galleryUrl" value="${item.url || ''}" placeholder="https://example.com/image.jpg" />
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas ${isEdit ? 'fa-save' : 'fa-plus'}"></i> ${isEdit ? 'Update' : 'Add'} Item
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="navigate('admin-gallery')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            }
+
+            return renderAdminLayout(`
+                <div class="page-header">
+                    <div>
+                        <h2>Gallery <span class="badge badge-primary" style="font-size:0.8rem; vertical-align:middle;">${gallery.length}</span></h2>
+                        <p style="color:var(--text-secondary);">Manage team photos and media.</p>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn btn-primary btn-sm" onclick="showGalleryForm()">
+                            <i class="fas fa-plus"></i> Add Image
+                        </button>
+                    </div>
+                </div>
+                ${formHtml}
+                <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:16px;">
+                    ${gallery.map(g => `
+                        <div style="background:var(--bg-surface); border-radius:var(--radius-md); border:1px solid var(--border-color); overflow:hidden; position:relative; aspect-ratio:1;">
+                            <div style="background:linear-gradient(135deg, #6C3CE1, #EC4899); width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.2); font-size:2.5rem;">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.6); padding:8px 12px; display:flex; justify-content:space-between; align-items:center;">
+                                <span style="color:#fff; font-size:0.75rem; font-weight:500;">${g.title || 'Untitled'}</span>
+                                <div style="display:flex; gap:4px;">
+                                    <button class="edit-btn" style="background:rgba(255,255,255,0.15); color:#fff; padding:2px 8px; border-radius:4px; font-size:0.65rem;" onclick="editGallery('${g.id}')"><i class="fas fa-edit"></i></button>
+                                    <button class="delete-btn" style="background:rgba(239,68,68,0.3); color:#fff; padding:2px 8px; border-radius:4px; font-size:0.65rem;" onclick="handleDeleteItem('gallery', '${g.id}')"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    ${gallery.length === 0 ? `
+                        <div style="grid-column:1/-1;">
+                            <div class="empty-state">
+                                <i class="fas fa-images"></i>
+                                <h4>No images yet</h4>
+                                <p>Add photos to your gallery.</p>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `);
+        }
+
+        // --- ADMIN: Settings ---
+        function renderAdminSettings() {
+            return renderAdminLayout(`
+                <div class="page-header">
+                    <div>
+                        <h2>Settings</h2>
+                        <p style="color:var(--text-secondary);">Manage your team portal settings.</p>
+                    </div>
+                </div>
+                <div style="display:grid; gap:24px; max-width:640px;">
+                    <div class="admin-form">
+                        <h3 style="margin-bottom:16px; font-weight:700;">Theme Preference</h3>
+                        <div style="display:flex; gap:12px;">
+                            <button class="btn ${state.theme === 'light' ? 'btn-primary' : 'btn-outline'}" onclick="toggleTheme()">
+                                <i class="fas fa-sun"></i> Light
+                            </button>
+                            <button class="btn ${state.theme === 'dark' ? 'btn-primary' : 'btn-outline'}" onclick="toggleTheme()">
+                                <i class="fas fa-moon"></i> Dark
+                            </button>
+                        </div>
+                    </div>
+                    <div class="admin-form">
+                        <h3 style="margin-bottom:16px; font-weight:700;">Account</h3>
+                        <p style="color:var(--text-secondary); margin-bottom:12px;">
+                            Logged in as <strong>${state.user?.email || 'admin@anajak.com'}</strong>
+                        </p>
+                        <button class="btn btn-danger" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i> Sign Out
+                        </button>
+                    </div>
+                    <div class="admin-form">
+                        <h3 style="margin-bottom:16px; font-weight:700;">About</h3>
+                        <p style="color:var(--text-secondary);">
+                            <strong>AnajakAngkor FC</strong> — Full-stack admin panel built with modern 2026 design trends.
+                            <br /><br />
+                            <span class="badge badge-primary">Next.js</span>
+                            <span class="badge badge-info">Supabase</span>
+                            <span class="badge badge-success">Tailwind</span>
+                            <span class="badge badge-warning">2026</span>
+                        </p>
+                    </div>
+                </div>
+            `);
+        }
+
+        // ================================================================
+        // 6. FORM HANDLERS (global functions for inline onclick)
+        // ================================================================
+
+        window.showPlayerForm = function(data = null) {
+            state.selectedItem = {
+                _form: true,
+                _mode: data ? 'edit' : 'add',
+                _formData: data || {}
+            };
+            navigate('admin-players');
+        };
+
+        window.editPlayer = function(id) {
+            const item = state.players.find(p => p.id === id) || MOCK_DATA.players.find(p => p.id === id);
+            if (item) window.showPlayerForm(item);
+        };
+
+        window.handlePlayerForm = function(e) {
             e.preventDefault();
+            const data = {
+                name: document.getElementById('playerName').value,
+                position: document.getElementById('playerPosition').value,
+                number: parseInt(document.getElementById('playerNumber').value) || 0,
+                age: parseInt(document.getElementById('playerAge').value) || 0,
+                goals: parseInt(document.getElementById('playerGoals').value) || 0,
+                assists: parseInt(document.getElementById('playerAssists').value) || 0,
+            };
+            const isEdit = state.selectedItem?._mode === 'edit';
+            const id = state.selectedItem?._formData?.id;
+            if (isEdit && id) {
+                handleEditItem('players', id, data);
+            } else {
+                handleAddItem('players', data);
+            }
+        };
 
-            const name = donorName.value.trim() || 'Anonymous';
-            const email = donorEmail.value.trim() || '';
-            const note = document.getElementById('donationNote').value.trim() || '';
-            const amount = currentAmount;
+        // --- Match forms ---
+        window.showMatchForm = function(data = null) {
+            state.selectedItem = {
+                _form: true,
+                _mode: data ? 'edit' : 'add',
+                _formData: data || {}
+            };
+            navigate('admin-matches');
+        };
 
-            if (amount < 0.5) {
-                showToast('Minimum donation is $0.50', 'error');
+        window.editMatch = function(id) {
+            const item = state.matches.find(m => m.id === id) || MOCK_DATA.matches.find(m => m.id === id);
+            if (item) window.showMatchForm(item);
+        };
+
+        window.handleMatchForm = function(e) {
+            e.preventDefault();
+            const data = {
+                home: document.getElementById('matchHome').value,
+                away: document.getElementById('matchAway').value,
+                homeScore: document.getElementById('matchHomeScore').value ? parseInt(document.getElementById(
+                    'matchHomeScore').value) : null,
+                awayScore: document.getElementById('matchAwayScore').value ? parseInt(document.getElementById(
+                    'matchAwayScore').value) : null,
+                date: document.getElementById('matchDate').value,
+                venue: document.getElementById('matchVenue').value,
+                status: document.getElementById('matchStatus').value,
+            };
+            const isEdit = state.selectedItem?._mode === 'edit';
+            const id = state.selectedItem?._formData?.id;
+            if (isEdit && id) {
+                handleEditItem('matches', id, data);
+            } else {
+                handleAddItem('matches', data);
+            }
+        };
+
+        // --- News forms ---
+        window.showNewsForm = function(data = null) {
+            state.selectedItem = {
+                _form: true,
+                _mode: data ? 'edit' : 'add',
+                _formData: data || {}
+            };
+            navigate('admin-news');
+        };
+
+        window.editNews = function(id) {
+            const item = state.news.find(n => n.id === id) || MOCK_DATA.news.find(n => n.id === id);
+            if (item) window.showNewsForm(item);
+        };
+
+        window.handleNewsForm = function(e) {
+            e.preventDefault();
+            const data = {
+                title: document.getElementById('newsTitle').value,
+                excerpt: document.getElementById('newsExcerpt').value,
+                category: document.getElementById('newsCategory').value,
+                date: document.getElementById('newsDate').value,
+            };
+            const isEdit = state.selectedItem?._mode === 'edit';
+            const id = state.selectedItem?._formData?.id;
+            if (isEdit && id) {
+                handleEditItem('news', id, data);
+            } else {
+                handleAddItem('news', data);
+            }
+        };
+
+        // --- Gallery forms ---
+        window.showGalleryForm = function(data = null) {
+            state.selectedItem = {
+                _form: true,
+                _mode: data ? 'edit' : 'add',
+                _formData: data || {}
+            };
+            navigate('admin-gallery');
+        };
+
+        window.editGallery = function(id) {
+            const item = state.gallery.find(g => g.id === id) || MOCK_DATA.gallery.find(g => g.id === id);
+            if (item) window.showGalleryForm(item);
+        };
+
+        window.handleGalleryForm = function(e) {
+            e.preventDefault();
+            const data = {
+                title: document.getElementById('galleryTitle').value,
+                url: document.getElementById('galleryUrl').value,
+            };
+            const isEdit = state.selectedItem?._mode === 'edit';
+            const id = state.selectedItem?._formData?.id;
+            if (isEdit && id) {
+                handleEditItem('gallery', id, data);
+            } else {
+                handleAddItem('gallery', data);
+            }
+        };
+
+        // ================================================================
+        // 7. MAIN RENDER
+        // ================================================================
+
+        function renderApp() {
+            // If we're loading, show a spinner overlay
+            if (state.loading) {
+                app.innerHTML = `
+                    <div style="display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--bg-body);">
+                        <div class="spinner" style="width:48px; height:48px;"></div>
+                    </div>
+                `;
                 return;
             }
 
-            // Disable button and show loading
-            payBtn.disabled = true;
-            payBtn.innerHTML = '<span class="spinner"></span> Generating...';
+            let html = '';
 
-            // Clear previous QR
-            qrImage.style.display = 'none';
-            qrPlaceholder.style.display = 'flex';
-            paymentStatus.className = 'payment-status';
-            paymentStatus.style.display = 'none';
-            checkStatusBtn.disabled = true;
-            copyRefBtn.disabled = true;
+            // Auth check for admin routes
+            const isAdminRoute = state.currentPage === 'admin' || state.currentPage.startsWith('admin-');
 
-            try {
-                const payload = {
-                    donor_name: name,
-                    donor_email: email,
-                    amount: amount,
-                    note: note,
-                    currency: 'USD'
-                };
+            if (isAdminRoute && !state.isLoggedIn) {
+                html = renderLogin();
+                render(html);
+                return;
+            }
 
-                const res = await fetch('api/create_payment.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+            // Page routing
+            switch (state.currentPage) {
+                case 'home':
+                    html = renderHome();
+                    break;
+                case 'login':
+                    html = renderLogin();
+                    break;
+                case 'admin':
+                case 'admin-players':
+                    html = renderAdminPlayers();
+                    break;
+                case 'admin-matches':
+                    html = renderAdminMatches();
+                    break;
+                case 'admin-news':
+                    html = renderAdminNews();
+                    break;
+                case 'admin-gallery':
+                    html = renderAdminGallery();
+                    break;
+                case 'admin-settings':
+                    html = renderAdminSettings();
+                    break;
+                default:
+                    html = renderHome();
+            }
+
+            render(html);
+
+            // Re-attach scroll handler for header
+            setupHeaderScroll();
+
+            // Close mobile nav on link click
+            document.querySelectorAll('.nav-links a').forEach(el => {
+                el.addEventListener('click', () => {
+                    document.getElementById('navLinks')?.classList.remove('open');
                 });
-
-                const data = await res.json();
-
-                if (data.success) {
-                    currentReference = data.reference;
-                    qrLabel.textContent = 'Scan with Bakong app to pay';
-                    qrRef.textContent = `Ref: ${currentReference}`;
-
-                    // Show QR code if returned
-                    if (data.qr_data) {
-                        // If it's a direct image URL or base64
-                        if (data.qr_data.startsWith('data:image') || data.qr_data.startsWith('http')) {
-                            qrImage.src = data.qr_data;
-                            qrImage.style.display = 'block';
-                            qrPlaceholder.style.display = 'none';
-                        } else {
-                            // Try to render as QR via API or show as text
-                            qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.qr_data)}`;
-                            qrImage.style.display = 'block';
-                            qrPlaceholder.style.display = 'none';
-                        }
-                    } else if (data.qr_url) {
-                        qrImage.src = data.qr_url;
-                        qrImage.style.display = 'block';
-                        qrPlaceholder.style.display = 'none';
-                    } else {
-                        // Fallback: show a QR from the reference
-                        qrImage.src =
-                            `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.reference)}`;
-                        qrImage.style.display = 'block';
-                        qrPlaceholder.style.display = 'none';
-                    }
-
-                    showToast('Payment QR generated! Scan to pay.', 'success');
-                    checkStatusBtn.disabled = false;
-                    copyRefBtn.disabled = false;
-
-                    // Start polling for status
-                    startPolling(currentReference);
-
-                    // Update recent donations
-                    loadRecentDonations();
-
-                } else {
-                    showToast(data.message || 'Failed to create payment', 'error');
-                }
-            } catch (err) {
-                showToast('Network error. Please try again.', 'error');
-                console.error(err);
-            } finally {
-                payBtn.disabled = false;
-                payBtn.innerHTML = '<i class="fas fa-qrcode"></i> Generate QR & Pay';
-            }
-        });
-
-        // ============================================================
-        //  Polling for payment status
-        // ============================================================
-        function startPolling(reference) {
-            if (pollingInterval) clearInterval(pollingInterval);
-
-            let attempts = 0;
-            const maxAttempts = 30; // ~5 minutes
-
-            pollingInterval = setInterval(async () => {
-                attempts++;
-                try {
-                    const res = await fetch(`api/check_payment.php?reference=${encodeURIComponent(reference)}`);
-                    const data = await res.json();
-
-                    if (data.success && data.status) {
-                        const status = data.status;
-                        if (status === 'completed') {
-                            clearInterval(pollingInterval);
-                            pollingInterval = null;
-                            paymentStatus.className = 'payment-status success';
-                            paymentStatus.style.display = 'block';
-                            paymentStatus.innerHTML =
-                                '<i class="fas fa-check-circle"></i> Payment confirmed! Thank you for your donation.';
-                            showToast('Payment confirmed! Thank you!', 'success');
-                            checkStatusBtn.disabled = true;
-                            loadRecentDonations();
-                            // Update stats
-                            updateStats();
-                        } else if (status === 'failed' || status === 'expired') {
-                            clearInterval(pollingInterval);
-                            pollingInterval = null;
-                            paymentStatus.className = 'payment-status error';
-                            paymentStatus.style.display = 'block';
-                            paymentStatus.innerHTML =
-                                '<i class="fas fa-times-circle"></i> Payment failed or expired. Please try again.';
-                            showToast('Payment failed. Please try again.', 'error');
-                            checkStatusBtn.disabled = true;
-                        } else {
-                            // still pending
-                            paymentStatus.className = 'payment-status pending';
-                            paymentStatus.style.display = 'block';
-                            paymentStatus.innerHTML =
-                                '<i class="fas fa-clock"></i> Waiting for payment confirmation...';
-                        }
-                    }
-
-                    if (attempts >= maxAttempts) {
-                        clearInterval(pollingInterval);
-                        pollingInterval = null;
-                        paymentStatus.className = 'payment-status pending';
-                        paymentStatus.style.display = 'block';
-                        paymentStatus.innerHTML =
-                            '<i class="fas fa-clock"></i> Still waiting. Use "Check Status" to verify.';
-                        checkStatusBtn.disabled = false;
-                    }
-                } catch (e) {
-                    // silent
-                }
-            }, 10000); // every 10 seconds
-        }
-
-        // ============================================================
-        //  Check status manually
-        // ============================================================
-        checkStatusBtn.addEventListener('click', async function() {
-            if (!currentReference) return;
-            this.disabled = true;
-            this.innerHTML = '<span class="spinner"></span>';
-
-            try {
-                const res = await fetch(`api/check_payment.php?reference=${encodeURIComponent(currentReference)}`);
-                const data = await res.json();
-                if (data.success && data.status) {
-                    const status = data.status;
-                    if (status === 'completed') {
-                        paymentStatus.className = 'payment-status success';
-                        paymentStatus.style.display = 'block';
-                        paymentStatus.innerHTML =
-                            '<i class="fas fa-check-circle"></i> Payment confirmed! Thank you!';
-                        showToast('Payment confirmed!', 'success');
-                        checkStatusBtn.disabled = true;
-                        loadRecentDonations();
-                        updateStats();
-                        if (pollingInterval) {
-                            clearInterval(pollingInterval);
-                            pollingInterval = null;
-                        }
-                    } else if (status === 'pending') {
-                        paymentStatus.className = 'payment-status pending';
-                        paymentStatus.style.display = 'block';
-                        paymentStatus.innerHTML = '<i class="fas fa-clock"></i> Still waiting for payment...';
-                        showToast('Still pending. Please complete the payment.', 'info');
-                    } else {
-                        paymentStatus.className = 'payment-status error';
-                        paymentStatus.style.display = 'block';
-                        paymentStatus.innerHTML = `<i class="fas fa-times-circle"></i> Status: ${status}`;
-                        showToast(`Status: ${status}`, 'error');
-                    }
-                } else {
-                    showToast(data.message || 'Could not check status', 'error');
-                }
-            } catch (e) {
-                showToast('Network error', 'error');
-            } finally {
-                this.disabled = false;
-                this.innerHTML = '<i class="fas fa-sync-alt"></i> Check Status';
-            }
-        });
-
-        // ============================================================
-        //  Copy reference
-        // ============================================================
-        copyRefBtn.addEventListener('click', function() {
-            if (!currentReference) return;
-            navigator.clipboard.writeText(currentReference).then(() => {
-                showToast('Reference copied!', 'success');
-            }).catch(() => {
-                // fallback
-                const ta = document.createElement('textarea');
-                ta.value = currentReference;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                ta.remove();
-                showToast('Reference copied!', 'success');
             });
-        });
-
-        // ============================================================
-        //  Update stats
-        // ============================================================
-        async function updateStats() {
-            try {
-                const res = await fetch('api/stats.php');
-                const data = await res.json();
-                if (data.success) {
-                    const cards = document.querySelectorAll('.stat-card .number');
-                    if (cards.length >= 4) {
-                        cards[0].textContent = `$${parseFloat(data.total_amount).toFixed(2)}`;
-                        cards[1].textContent = data.total_donations;
-                        cards[2].textContent = data.donors_count;
-                        cards[3].textContent = data.pending_count;
-                    }
-                }
-            } catch (e) { /* ignore */ }
         }
 
-        // ============================================================
-        //  Mobile toggle
-        // ============================================================
-        document.getElementById('mobileToggle').addEventListener('click', function() {
-            document.getElementById('navLinks').classList.toggle('open');
-        });
+        // --- Header scroll effect ---
+        function setupHeaderScroll() {
+            const header = document.getElementById('mainHeader');
+            if (!header) return;
+            const handler = () => {
+                if (window.scrollY > 40) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            };
+            window.addEventListener('scroll', handler);
+            // Initial check
+            setTimeout(handler, 100);
+        }
 
-        // ============================================================
-        //  Init
-        // ============================================================
-        loadRecentDonations();
+        // ================================================================
+        // 8. INIT
+        // ================================================================
 
-        // Auto-refresh stats every 30 seconds
-        setInterval(updateStats, 30000);
+        async function init() {
+            loadTheme();
 
-        console.log('🚀 DonateNow 2026 · Bakong KHQR ready');
-        console.log('💡 API Key configured in settings');
+            // Load data
+            state.players = await fetchData('players');
+            state.matches = await fetchData('matches');
+            state.news = await fetchData('news');
+            state.gallery = await fetchData('gallery');
+
+            // Check if user is already logged in (simulated)
+            // For demo, we'll check localStorage
+            const savedSession = localStorage.getItem('anajak_session');
+            if (savedSession) {
+                try {
+                    const session = JSON.parse(savedSession);
+                    state.isLoggedIn = true;
+                    state.user = session.user;
+                } catch (e) {}
+            }
+
+            renderApp();
+        }
+
+        // Override login to save session
+        const originalLogin = handleLogin;
+        window.handleLogin = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            state.loading = true;
+            renderApp();
+
+            const { data, error } = await supabase.signIn(email, password);
+            state.loading = false;
+
+            if (error) {
+                showToast(error.message, 'error');
+                renderApp();
+                return;
+            }
+            state.isLoggedIn = true;
+            state.user = data.user;
+            localStorage.setItem('anajak_session', JSON.stringify({ user: data.user }));
+            showToast(`Welcome back, ${data.user.email}!`, 'success');
+            navigate('admin');
+        };
+
+        // Override logout
+        const originalLogout = handleLogout;
+        window.handleLogout = async function() {
+            await supabase.signOut();
+            state.isLoggedIn = false;
+            state.user = null;
+            localStorage.removeItem('anajak_session');
+            showToast('Logged out', 'info');
+            navigate('home');
+        };
+
+        // Make CRUD functions globally accessible for inline onclick
+        window.handleDeleteItem = handleDeleteItem;
+        window.navigate = navigate;
+        window.toggleTheme = toggleTheme;
+
+        // Expose state for debugging
+        window.__state = state;
+
+        // Start the app
+        init();
     </script>
 
 </body>
